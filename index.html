@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kai Lavatai — Christian synthpop & vaporwave music ministry. Gospel-rooted music wherever you stream." />
+  <title>Kai Lavatai — Claim The Word</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Dancing+Script:wght@500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="master-wrapper">
+  <!-- ============================================================
+       NAV — scrolling pill nav; press-hold-scroll on desktop & mobile
+       ============================================================ -->
+  <nav id="nav" aria-label="Main navigation">
+    <button id="nav-menu-scroll-left-button" aria-label="Scroll navigation left" tabindex="0">
+      <svg viewBox="0 0 10 16" width="10" height="16" aria-hidden="true">
+        <path d="M8 2 L2 8 L8 14" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div id="nav-menu-scroll-container">
+      <ul id="nav-menu-ul" role="list">
+        <li id="nav-menu-ul-media_li"><a href="#header">Media</a></li>
+        <li id="nav-menu-ul-resources_li"><a href="#resources-section">Resources</a></li>
+        <li id="nav-menu-ul-contact_li"><a href="#contact-section">Contact</a></li>
+        <li id="nav-menu-ul-mission_li"><a href="#missions-section">Mission</a></li>
+        <li id="nav-menu-ul-people_li"><a href="#people-section">People</a></li>
+        <li id="nav-menu-ul-support_li"><a href="#contact-section">Support</a></li>
+        <li id="nav-menu-ul-souvenirs_li"><a href="souvenirs.html">Souvenirs</a></li>
+      </ul>
+    </div>
+    <button id="nav-menu-scroll-right-button" aria-label="Scroll navigation right" tabindex="0">
+      <svg viewBox="0 0 10 16" width="10" height="16" aria-hidden="true">
+        <path d="M2 2 L8 8 L2 14" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- ============================================================
+       HEADER — meshgradient8 background: #aaaaff, #330080, #ff80e5, #8d5fd3
+       ============================================================ -->
+  <header id="header">
+
+    <!-- HERO IMAGE CROSSFADE LAYERS
+         Layer A and B alternate on track change. Active layer fades in,
+         inactive fades out. JS sets .src-style background-image on the
+         incoming layer then toggles .hero-a-active on #header.
+         background-size:cover + background-position:center ensures
+         fitted, centered, no-stretch at all viewport sizes. -->
+    <div id="hero-layer-a" class="hero-layer" aria-hidden="true"></div>
+    <div id="hero-layer-b" class="hero-layer" aria-hidden="true"></div>
+
+    <!-- PARALLAX BLOB LAYERS for header mesh gradient approximation -->
+    <div class="blob-layer blob-header-1" aria-hidden="true"></div>
+    <div class="blob-layer blob-header-2" aria-hidden="true"></div>
+    <div class="blob-layer blob-header-3" aria-hidden="true"></div>
+    <div class="blob-layer blob-header-4" aria-hidden="true"></div>
+
+    <!-- ============================================================
+         MUSIC PLAYER — custom HTML5 Audio API player
+         White semi-transparent panel over header gradient
+         ============================================================ -->
+    <section id="music-player" aria-label="Music player">
+
+      <!-- Volume Control: full-width row [−] | gradient bar | [+] -->
+      <div id="music-player-volume-control">
+        <button id="music-player-volume-control-lower-encoder" aria-label="Decrease volume" title="Volume down">
+          <!-- Minus: horizontal bar — white fill, dark stroke -->
+          <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
+            <rect x="3" y="8" width="12" height="2.2" rx="1.1" fill="white" stroke="#220040" stroke-width="0.4"/>
+          </svg>
+        </button>
+
+        <!-- linearGradient396: #d994ff → transparent. Filled width = volume 0–10 -->
+        <div id="music-player-volume-control_indicator" role="presentation">
+          <div id="music-player-volume-control_indicator-fill"></div>
+        </div>
+
+        <button id="music-player-volume-control-raise-encoder" aria-label="Increase volume" title="Volume up">
+          <!-- Plus: cross/plus — white fill, dark stroke -->
+          <svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">
+            <rect x="3" y="8" width="12" height="2.2" rx="1.1" fill="white" stroke="#220040" stroke-width="0.4"/>
+            <rect x="8" y="3" width="2.2" height="12" rx="1.1" fill="white" stroke="#220040" stroke-width="0.4"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Track Controls: transport row. Button fill: #8d5fd3–#976cce ~69% opacity -->
+      <!-- Cover art thumbnail — updated by JS on track change -->
+
+
+      <div id="music-player-track-controls">
+        <button id="music-player-track-controls-previous-track-button" aria-label="Previous track">
+          <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+            <polygon points="22,5 10,14 22,23" fill="rgba(141,95,211,0.69)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+            <rect x="5" y="5" width="3.5" height="18" rx="1.5" fill="rgba(141,95,211,0.69)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+          </svg>
+        </button>
+
+        <!-- Pause button — visible when playing; hidden when paused -->
+        <button id="music-player-track-controls-pause-button" aria-label="Pause" style="display:none;">
+          <svg viewBox="0 0 28 28" width="32" height="32" aria-hidden="true">
+            <rect x="7" y="5" width="4.5" height="18" rx="2" fill="rgba(150,106,207,0.69)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+            <rect x="16.5" y="5" width="4.5" height="18" rx="2" fill="rgba(150,106,207,0.69)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+          </svg>
+        </button>
+
+        <!-- Play button — visible when paused; swaps with pause on click -->
+        <button id="music-player-track-controls-play-button" aria-label="Play">
+          <svg viewBox="0 0 28 28" width="32" height="32" aria-hidden="true">
+            <polygon points="7,4 24,14 7,24" fill="rgba(141,95,211,0.69)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+          </svg>
+        </button>
+
+        <button id="music-player-track-controls-next-track-button" aria-label="Next track">
+          <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+            <polygon points="6,5 18,14 6,23" fill="rgba(141,95,211,0.69)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+            <rect x="19.5" y="5" width="3.5" height="18" rx="1.5" fill="rgba(141,95,211,0.69)" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Credits row: left spacer ~72% + right credits block ~28% -->
+      <div id="music-player-credits-row">
+        <!-- Left ~72% intentional dark negative space, no content -->
+        <div id="music-player-song-credits-spacer" aria-hidden="true"></div>
+
+        <!-- Right ~28%: dark semi-transparent bg, text #aaccff, Antonio -->
+		<div id="music-player-cover-art">
+			<img
+			  id="music-player-cover-art-img"
+			  src="images/cover-placeholder.jpg"
+			  alt="Album cover art"
+			  width="72"
+			  height="72"
+			/>
+		 </div>
+        <div id="music-player-song-credits">
+          <ul id="music-player-song-credits-text" aria-live="polite" aria-atomic="true">
+            <li id="music-player-song-credits-text-artist_li"></li>
+            <li id="music-player-song-credits-text-track_li"></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Track Progress: full-width. Custom range input with star/diamond thumb -->
+      <div id="music-player-track-progress">
+        <input
+          type="range"
+          id="track-seek-bar"
+          min="0"
+          max="100"
+          value="0"
+          step="0.1"
+          aria-label="Track progress"
+        />
+      </div>
+
+    </section><!-- /#music-player -->
+
+    <!-- ============================================================
+         MUSIC STORE — 3-column grid
+         Full-bleed dark bar (#1c1f24 ~21% opacity) beneath player
+         ============================================================ -->
+    <section id="music-store" aria-label="Stream and support">
+
+      <!-- Column 1 (~30%): mainstream outlets — circle buttons #aaccff -->
+      <ul id="music-store-mainstream-outlets-menu" aria-label="Stream on mainstream platforms">
+        <li id="spotify-store-button">
+          <a href="#" aria-label="Listen on Spotify" rel="noopener">
+            <span class="store-icon store-icon--spotify" aria-hidden="true">
+              <!-- Spotify stylized S -->
+              <svg viewBox="0 0 40 40" width="36" height="36">
+                <circle cx="20" cy="20" r="19" fill="#aaccff" opacity="0.9"/>
+                <path d="M12 16.5 C17 13.5 24 13.5 28 15.5 M12 20 C16.5 17.5 23.5 17.5 27.5 19.5 M12 23.5 C16 21.5 23 21.5 27 23.5" stroke="#1c1f24" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="store-label">Spotify</span>
+          </a>
+        </li>
+        <li id="youtube-music-store-button">
+          <a href="#" aria-label="Listen on YouTube Music" rel="noopener">
+            <span class="store-icon store-icon--ytmusic" aria-hidden="true">
+              <svg viewBox="0 0 40 40" width="36" height="36">
+                <circle cx="20" cy="20" r="19" fill="#aaccff" opacity="0.9"/>
+                <circle cx="20" cy="20" r="8" fill="#cc0000"/>
+                <polygon points="17,16 25,20 17,24" fill="white"/>
+              </svg>
+            </span>
+            <span class="store-label">YT Music</span>
+          </a>
+        </li>
+        <li id="apple-music-store-button">
+          <a href="#" aria-label="Listen on Apple Music" rel="noopener">
+            <span class="store-icon store-icon--apple" aria-hidden="true">
+              <svg viewBox="0 0 40 40" width="36" height="36">
+                <circle cx="20" cy="20" r="19" fill="#aaccff" opacity="0.9"/>
+                <path d="M25,12 C25,12 21,14 20,17 C22,17 26,15 26,12 Z" fill="#fa233b"/>
+                <path d="M15,17 C12,17 11,20 11,22.5 C11,27 14,30 17,30 C18.5,30 19.5,29 20.5,29 C21.5,29 22.3,30 24,30 C27,30 29,27 29,23 C29,20 27,18 25,17.5 C24,17.2 23,17 22,17 C20.5,17 19,18 17.5,18 C16.5,18 15.5,17 15,17 Z" fill="#fa233b"/>
+              </svg>
+            </span>
+            <span class="store-label">Apple Music</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Column 2 (~49%): store sign — cobalt #4475ea background -->
+      <div id="store-sign">
+        <h3 id="music-player-store-sign">
+          <!-- Mixed-face typographic lockup: Antonio uppercase + Dancing Script "the" -->
+          <span class="store-sign-claim antonio-caps">Claim</span>
+          <span class="store-sign-the dancing-script">the</span>
+          <span class="store-sign-word antonio-caps">Word</span>
+        </h3>
+        <!-- Two lines: Mistral/Dancing Script, centered, white, line-height:0.65 -->
+        <p id="music-player-store-slogan">
+          <span>Christian synthpop</span><br>
+          <span>wherever you stream music!</span>
+        </p>
+      </div>
+
+      <!-- Column 3 (~21%): direct support — circle buttons #aaccff -->
+      <ul id="music-store-direct-support-outlets-menu" aria-label="Support on direct platforms">
+        <li id="subvert-store-button">
+          <a href="#" aria-label="Support on Subvert" rel="noopener">
+            <span class="store-icon store-icon--subvert" aria-hidden="true">
+              <svg viewBox="0 0 40 40" width="36" height="36">
+                <circle cx="20" cy="20" r="19" fill="#aaccff" opacity="0.9"/>
+                <text x="20" y="25" text-anchor="middle" font-family="Antonio, sans-serif" font-size="13" font-weight="700" fill="#220040">S</text>
+              </svg>
+            </span>
+            <span class="store-label">Subvert</span>
+          </a>
+        </li>
+        <li id="bandcamp-store-button">
+          <a href="#" aria-label="Support on Bandcamp" rel="noopener">
+            <span class="store-icon store-icon--bandcamp" aria-hidden="true">
+              <svg viewBox="0 0 40 40" width="36" height="36">
+                <circle cx="20" cy="20" r="19" fill="#aaccff" opacity="0.9"/>
+                <path d="M10,24 L20,13 H30 L20,24 Z" fill="#1da0c3"/>
+              </svg>
+            </span>
+            <span class="store-label">Bandcamp</span>
+          </a>
+        </li>
+      </ul>
+
+    </section><!-- /#music-store -->
+
+  </header><!-- /#header -->
+
+  <!-- ============================================================
+       MAIN — meshgradient13 background: #550044, #2a2aff, #ac939d, #87decd
+       All sections within share this full-bleed background
+       ============================================================ -->
+  <main id="main">
+
+    <!-- PARALLAX BLOB LAYERS for main mesh gradient approximation -->
+    <div class="blob-layer blob-main-1" aria-hidden="true"></div>
+    <div class="blob-layer blob-main-2" aria-hidden="true"></div>
+    <div class="blob-layer blob-main-3" aria-hidden="true"></div>
+    <div class="blob-layer blob-main-4" aria-hidden="true"></div>
+
+    <!-- ============================================================
+         RESOURCES SECTION
+         CSS Grid: figure left ~55%, article right ~45%
+         CD circle scrolls with section, position:absolute
+         ============================================================ -->
+    <section id="resources-section" aria-labelledby="resources-article-heading">
+
+      <!-- CD circle: CSS-drawn, radialGradient1: #8d5fd3→#a793ac -->
+      <img id="fixed-background-image-CD-1" src="images/cd-disc.png" alt="" aria-hidden="true" draggable="false" />
+      <!-- Left ~55%: Resources illustration -->
+      <figure id="resources-figure">
+        <img
+          id="resources-figure-image"
+          src="images/resources-img.png"
+          alt="Abstract worship light rays radiating upward through a cloudy sky"
+          loading="lazy"
+          width="800"
+          height="600"
+        />
+      </figure>
+
+      <!-- Right ~45%: Resources article -->
+      <article id="resources-article">
+        <!-- linearGradient25: #ff80e5 76% → transparent — applied as background -->
+
+        <h2 id="resources-article-subheading">Ministry</h2>
+        <h1 id="resources-article-heading">Resources</h1>
+        <p id="resources-article-text">
+          Whether you're new to faith or have walked with Jesus for decades,
+          these resources are here to strengthen your walk. From scripture
+          references to devotional guides, everything points back to The Word —
+          because The Word was there at the beginning, and it will carry you
+          all the way home.
+        </p>
+        <button id="resources-article-button" type="button">More</button>
+      </article>
+
+    </section><!-- /#resources-section -->
+
+    <!-- ============================================================
+         CONTACT SECTION
+         CSS Grid: full-width heading above three equal columns
+         Background: #aaffaa ~24% opacity
+         ============================================================ -->
+    <section id="contact-section" aria-labelledby="contact-heading">
+
+      <h1 id="contact-heading">Contact</h1>
+
+      <div id="contact-columns-grid">
+
+        <!-- Column: Socials -->
+        <div id="contact-socials-menu">
+          <h3 id="contact-socials-menu-heading">Socials</h3>
+          <ul id="contact-socials-menu-items" aria-label="Social media links">
+            <li id="contact-socials-menu-items-youtube">
+              <a href="#" aria-label="YouTube" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <path d="M9,15.5 C9,13 11,11 13.5,11 H31.5 C34,11 36,13 36,15.5 V29.5 C36,32 34,34 31.5,34 H13.5 C11,34 9,32 9,29.5 Z" fill="#cc0000"/>
+                  <polygon points="19,17 29,22.5 19,28" fill="white"/>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-socials-menu-items-instagram">
+              <a href="#" aria-label="Instagram" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <rect x="10" y="10" width="25" height="25" rx="7" fill="none" stroke="url(#ig-grad)" stroke-width="2.5"/>
+                  <circle cx="22.5" cy="22.5" r="7" fill="none" stroke="url(#ig-grad)" stroke-width="2.2"/>
+                  <circle cx="30.5" cy="14.5" r="1.8" fill="url(#ig-grad)"/>
+                  <defs>
+                    <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#f09433"/>
+                      <stop offset="25%" stop-color="#e6683c"/>
+                      <stop offset="50%" stop-color="#dc2743"/>
+                      <stop offset="75%" stop-color="#cc2366"/>
+                      <stop offset="100%" stop-color="#bc1888"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-socials-menu-items-tiktok">
+              <a href="#" aria-label="TikTok" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <path d="M28,10 C28,14 31,17 35,17 V22 C31.5,22 28.5,20.8 26.5,18.8 V29 C26.5,33 23,36 19,36 C15,36 11.5,33 11.5,29 C11.5,25 15,22 19,22 C19.5,22 20,22.1 20.5,22.2 V27.5 C20,27.3 19.5,27.2 19,27.2 C17.5,27.2 16.3,28.4 16.3,29.9 C16.3,31.4 17.5,32.6 19,32.6 C20.5,32.6 21.7,31.4 21.7,29.9 C21.7,29.8 21.7,10 21.7,10 Z" fill="white"/>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-socials-menu-items-gab">
+              <a href="#" aria-label="Gab" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <text x="22.5" y="29" text-anchor="middle" font-family="Antonio, sans-serif" font-size="16" font-weight="700" fill="white">GAB</text>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-socials-menu-items-tumblr">
+              <a href="#" aria-label="Tumblr" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <path d="M21,10 H25 V16 H30 V20 H25 V29 C25,31 26,32 28,32 H30 V36 H26 C22,36 20,33.5 20,30 V20 H17 V16 H20 V10 Z" fill="white"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column: Support -->
+        <div id="contact-support-menu">
+          <h3 id="contact-support-menu-heading">Support</h3>
+          <ul id="contact-support-menu-items" aria-label="Music platform links">
+            <li id="contact-support-menu-items-youtube-music">
+              <a href="#" aria-label="YouTube Music" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <circle cx="22.5" cy="22.5" r="12" fill="#cc0000"/>
+                  <polygon points="18,16 29.5,22.5 18,29" fill="white"/>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-support-menu-items-apple-music">
+              <a href="#" aria-label="Apple Music" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <path d="M30,13 C30,13 25,16 24,20 C27,20 32,17.5 32,13 Z" fill="#fa233b"/>
+                  <path d="M18,19 C14,19 12,23 12,27 C12,33 16,36 20,36 C22,36 23,35 24.5,35 C26,35 27,36 29,36 C33,36 35,32 35,27 C35,24 33,21 30,20 C29,19.5 28,19.2 26,19 C24,19 22.5,20 20.5,20 C19.5,20 18.5,19 18,19 Z" fill="#fa233b"/>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-support-menu-items-bandcamp">
+              <a href="#" aria-label="Bandcamp" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <path d="M8,29 L19,13 H37 L26,29 Z" fill="#1da0c3"/>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-support-menu-items-spotify">
+              <a href="#" aria-label="Spotify" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <circle cx="22.5" cy="22.5" r="13" fill="#1db954"/>
+                  <path d="M15 19 C19.5 16.5 27 16.5 31 18.5 M15 23 C19.5 20.5 26.5 20.5 31 22.5 M15 27 C19 25 26 25 30.5 27" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-support-menu-items-subvert">
+              <a href="#" aria-label="Subvert" rel="noopener" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <text x="22.5" y="29" text-anchor="middle" font-family="Antonio, sans-serif" font-size="18" font-weight="700" fill="white">S</text>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column: Office -->
+        <div id="contact-office-menu">
+          <h3 id="contact-office-menu-heading">Office</h3>
+          <ul id="contact-office-menu-items" aria-label="Contact information">
+            <li id="contact-office-menu-items-phone">
+              <a href="tel:+1-360-555-0100" aria-label="Phone" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <path d="M15,11 C14,11 12,13 12,15 C12,26 19,33 30,33 C32,33 34,31 34,30 L31,26 C30,25 29,25 28,26 L26.5,27.5 C25,27 22,24 21.5,22.5 L23,21 C24,20 24,19 23,18 Z" fill="white"/>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-office-menu-items-email">
+              <a href="mailto:hello@claimtheword.com" aria-label="Email" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <rect x="8" y="14" width="29" height="20" rx="3" fill="none" stroke="white" stroke-width="2"/>
+                  <path d="M8,17 L22.5,26 L37,17" stroke="white" stroke-width="2" fill="none"/>
+                </svg>
+              </a>
+            </li>
+            <li id="contact-office-menu-items-address">
+              <a href="#" aria-label="Address — Sequim, WA" class="contact-tile">
+                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+                  <path d="M22.5,9 C18,9 14,13 14,17.5 C14,24 22.5,36 22.5,36 C22.5,36 31,24 31,17.5 C31,13 27,9 22.5,9 Z" fill="none" stroke="white" stroke-width="2"/>
+                  <circle cx="22.5" cy="17.5" r="3.5" fill="white"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /#contact-columns-grid -->
+
+    </section><!-- /#contact-section -->
+
+    <!-- ============================================================
+         MISSION SECTION
+         CSS Grid: article left ~50%, figure right ~50%
+         Mirror of Resources layout. CD circle scrolls with section.
+         ============================================================ -->
+    <section id="missions-section" aria-labelledby="mission-article-heading">
+
+      <!-- CD circle: CSS-drawn, radialGradient5: #8d5fd3→#a793ac -->
+      <img id="fixed-background-image-CD-2" src="images/cd-disc.png" alt="" aria-hidden="true" draggable="false" />
+      <!-- Left ~50%: Mission article -->
+      <article id="mission-article">
+        <!-- linearGradient29: #ffb080 35% → transparent — applied as background -->
+
+        <h2 id="mission-article-subheading">The</h2>
+        <h1 id="mission-article-heading">Mission</h1>
+        <p id="mission-article-text">
+          The mission is simple: to bring The Word to those who need it most,
+          through music they actually want to hear. Synthpop, vaporwave, and
+          gospel truth — no bait-and-switch. If the music gets you in the door,
+          Jesus keeps you there. Every beat, every lyric, every platform presence
+          is an act of worship and outreach.
+        </p>
+        <button type="button" id="mission-article-button">Support</button>
+      </article>
+
+      <!-- Right ~50%: Mission illustration -->
+      <figure id="mission_figure">
+        <img
+          id="mission-figure-image"
+          src="images/mission-img.png"
+          alt="A winding path through a dramatic mountain landscape under golden-hour light"
+          loading="lazy"
+          width="800"
+        />
+      </figure>
+
+    </section><!-- /#missions-section -->
+
+    <!-- ============================================================
+         PEOPLE SECTION
+         CSS Grid: figure left ~50%, article right ~50%
+         Background: #ffe680 ~13% opacity
+         ============================================================ -->
+    <section id="people-section" aria-labelledby="people-article-heading">
+
+      <!-- Left ~50%: Portrait -->
+      <figure id="people-figure">
+        <img
+          id="people-figure-image"
+          src="images/people-section-portrait.gif"
+          alt="Warm portrait — replace with artist photo of Kai Lavatai"
+          loading="lazy"
+          width="600"
+          height="750"
+        />
+      </figure>
+
+      <!-- Right ~50%: People article -->
+      <article id="people-article">
+
+        <h1 id="people-article-heading">People</h1>
+
+        <!-- Three separate <p> blocks per tspan groups -->
+        <p class="people-intro-line">Who Are "We"?</p>
+
+        <p>
+          Right now, it's just me — and the incredible people closest to me:
+          my mom, my dad, and a handful of supportive colleagues who've walked
+          this journey alongside me. Like anyone else, I have a past. But most
+          importantly, I have a future — we all do, in Christ Jesus.
+          I'm Born Again.
+        </p>
+
+        <p>
+          If you search for me online, you might find a photo or a snippet here
+          and there from a former version of myself — someone careless, immature,
+          and far from who I am today. No, I didn't scrub the internet clean or
+          try to "future-proof" my reputation. My reputation isn't the point;
+          The Word speaks for itself, and I'm just a vessel. That said, I did
+          remove anything I felt could explicitly harm or mislead those young in
+          faith or in years. My focus is on what matters: pointing to Jesus.
+        </p>
+
+        <p>
+          So, join me in dancing for the King of kings! I'm so thankful to be
+          Saved — and I'm here to celebrate that with you.
+        </p>
+      </article>
+    </section><!-- /#people-section -->
+  </main><!-- /#main -->
+  <!-- ============================================================
+       FOOTER — minimal, full-bleed, #483745 ~71% opacity
+       Single line, no links, no logo
+       ============================================================ -->
+  <footer id="footer">
+    <h6 id="footer-copyright-statement-text">
+      &copy; 2026 Kai Lavatai. All rights reserved
+    </h6>
+  </footer>
+</div> <!-- #master-wrapper end -->
+  <!-- Hidden HTML5 audio element -->
+  <audio id="audio-player" preload="none"></audio>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

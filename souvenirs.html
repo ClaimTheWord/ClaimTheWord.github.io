@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kai Lavatai — Christian synthpop & vaporwave music ministry. Gospel-rooted music wherever you stream." />
+  <title>Kai Lavatai — Claim The Word</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Dancing+Script:wght@500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="master-wrapper">
+  <!-- ============================================================
+       NAV — scrolling pill nav; press-hold-scroll on desktop & mobile
+       ============================================================ -->
+  <nav id="navSecondary" aria-label="Main navigation">
+    <button id="nav-menu-scroll-left-button" aria-label="Scroll navigation left" tabindex="0">
+      <svg viewBox="0 0 10 16" width="10" height="16" aria-hidden="true">
+        <path d="M8 2 L2 8 L8 14" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div id="nav-menu-scroll-container">
+      <ul id="nav-menu-ul" role="list">
+        <li id="nav-menu-ul-media_li"><a href="index.html#header">Media</a></li>
+        <li id="nav-menu-ul-resources_li"><a href="index.html#resources-section">Resources</a></li>
+        <li id="nav-menu-ul-contact_li"><a href="index.html#contact-section">Contact</a></li>
+        <li id="nav-menu-ul-mission_li"><a href="index.html#missions-section">Mission</a></li>
+        <li id="nav-menu-ul-people_li"><a href="index.html#people-section">People</a></li>
+        <li id="nav-menu-ul-support_li"><a href="index.html#contact-section">Support</a></li>
+      </ul>
+    </div>
+    <button id="nav-menu-scroll-right-button" aria-label="Scroll navigation right" tabindex="0">
+      <svg viewBox="0 0 10 16" width="10" height="16" aria-hidden="true">
+        <path d="M2 2 L8 8 L2 14" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </nav>
+
+
+  <!-- ============================================================
+       MAIN — meshgradient13 background: #550044, #2a2aff, #ac939d, #87decd
+       All sections within share this full-bleed background
+       ============================================================ -->
+  <main id="main">
+
+    <!-- PARALLAX BLOB LAYERS for main mesh gradient approximation -->
+    <div class="blob-layer blob-main-1" aria-hidden="true"></div>
+    <div class="blob-layer blob-main-2" aria-hidden="true"></div>
+    <div class="blob-layer blob-main-3" aria-hidden="true"></div>
+    <div class="blob-layer blob-main-4" aria-hidden="true"></div>
+	<section id="myShop">
+		<script>
+			var spread_shop_config = {
+				shopName: 'claimtheword',
+				locale: 'us_US',
+				prefix: 'https://claimtheword.myspreadshop.com',
+				baseId: 'myShop'
+			};
+		</script>
+		<script type="text/javascript"
+		        src="https://claimtheword.myspreadshop.com/shopfiles/shopclient/shopclient.nocache.js">
+		</script>
+	</section>
+  </main><!-- /#main -->
+
+  <!-- ============================================================
+       FOOTER — minimal, full-bleed, #483745 ~71% opacity
+       Single line, no links, no logo
+       ============================================================ -->
+  <footer id="footer">
+    <h6 id="footer-copyright-statement-text">
+      &copy; 2026 Kai Lavatai. All rights reserved
+    </h6>
+  </footer>
+</div> <!-- #master-wrapper end -->
+  <!-- Hidden HTML5 audio element -->
+  <audio id="audio-player" preload="none"></audio>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

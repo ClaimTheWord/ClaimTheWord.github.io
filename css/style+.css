@@ -1,0 +1,1552 @@
+/* =============================================================
+   KAI LAVATAI — CLAIM THE WORD
+   css/style.css
+   All hex values taken directly from SVG source files.
+   Mesh gradients approximated as layered radial-gradients
+   using the four corner stop values per spec comment.
+   ============================================================= */
+
+/* ─────────────────────────────────────────────────────────────
+   GOOGLE FONTS — Antonio / Libre Baskerville / Dancing Script
+   (imported in <head>; declared here for fallback reference)
+   ───────────────────────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES — all from SVG source
+   ───────────────────────────────────────────────────────────── */
+:root {
+  /* ── Gradient corner stops ── */
+
+  /* meshgradient8 (header) — 4 corner stops */
+  --mesh8-tl:   #aaaaff;   /* top-left */
+  --mesh8-tr:   #330080;   /* top-right */
+  --mesh8-bl:   #ff80e5;   /* bottom-left */
+  --mesh8-br:   #8d5fd3;   /* bottom-right */
+
+  /* meshgradient13 (main) — 4 corner stops */
+  --mesh13-tl:  #550044;   /* top-left */
+  --mesh13-tr:  #2a2aff;   /* top-right */
+  --mesh13-bl:  #ac939d;   /* bottom-left */
+  --mesh13-br:  #87decd;   /* bottom-right */
+
+  /* linearGradient24 (resources article bg base) */
+  --lg24-start: rgba(255,128,229, 0.7613169);   /* #ff80e5 at 76% */
+  --lg24-end:   rgba(255,128,229, 0);
+
+  /* linearGradient25 = lg24 applied left→right (resources article) */
+  /* linearGradient26 (mission overlay) */
+  --lg26-start: rgba(212,0,170, 0.32915362);    /* #d400aa */
+  --lg26-end:   rgba(212,0,170, 0);
+
+  /* linearGradient28 (mission article bg base) */
+  --lg28-start: rgba(255,176,128, 0.34979424);  /* #ffb080 */
+  --lg28-end:   rgba(255,230,128, 0);           /* #ffe680 */
+
+  /* linearGradient396 (volume indicator) */
+  --vol-fill:   #d994ff;
+  --vol-empty:  transparent;
+
+  /* linearGradient71 / radialGradient72 (seek thumb) */
+  --thumb-start: #ff2fff;
+  --thumb-end:   #ffc600;
+
+  /* radialGradient1 / radialGradient5 (CD circles) */
+  --cd-inner:   #8d5fd3;
+  --cd-outer:   #a793ac;
+
+  /* ── Named UI colors ── */
+  --color-aaccff:       #aaccff;
+  --color-player-btn-a: rgba(141,95,211,0.69);   /* #8d5fd3 ~69% */
+  --color-player-btn-b: rgba(151,108,206,0.687);  /* #976cce ~69% */
+  --color-player-btn-c: rgba(150,106,207,0.69);   /* #966acf ~69% */
+  --color-music-store-dark: rgba(28,31,36,0.206897);  /* #1c1f24 ~21% */
+  --color-store-sign-bg:    #4475ea;
+  --color-contact-section-bg: rgba(170,255,170,0.24); /* #aaffaa ~24% */
+  --color-people-section-bg:  rgba(255,230,128,0.153605); /* #ffe680 ~15% */
+  --color-footer-bg:    rgba(72,55,69,0.711599);  /* #483745 ~71% */
+  --color-track-fill:   #d994ff;
+  --color-track-stroke: #ffd79a;
+
+  /* ── Typography ── */
+  --font-heading:   'Antonio', sans-serif;           /* headings, nav, all-caps */
+  --font-body:      'Baskerville Old Face', 'Libre Baskerville', Georgia, serif;
+  --font-script:    'Mistral', 'Dancing Script', cursive;  /* subheadings, column headers */
+
+  /* ── Spacing & radius ── */
+  --nav-height: 44px;
+  --section-pad-v: clamp(3rem, 7vw, 6rem);
+  --section-pad-h: clamp(1.25rem, 5vw, 4rem);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESET & BASE
+   ───────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  background: #0a0012;
+  color: #fff;
+  position: relative;
+  display: flex;
+  justify-content: center; /* Horizontally centers the block element */
+  align-items: center;    /* Vertically centers the block element */
+}
+body *{
+	  z-index: 1;
+}
+#master-wrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  justify-content: center;
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul { list-style: none; }
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BLOB PARALLAX LAYERS
+   Absolutely positioned inside their parent sections.
+   JS scrollY drives translateY at differing rates.
+   filter:hue-rotate() drifts on scroll for atmospheric pastel.
+   ───────────────────────────────────────────────────────────── */
+.blob-layer {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, filter;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+/* Header blobs — approximate meshgradient8 (#aaaaff, #330080, #ff80e5, #8d5fd3) */
+.blob-header-1 {
+  width: 70vw;
+  height: 70vw;
+  max-width: 700px;
+  max-height: 700px;
+  top: -20%;
+  left: -15%;
+  background: radial-gradient(ellipse at center, rgba(170,170,255,0.85) 0%, rgba(51,0,128,0.5) 55%, transparent 80%);
+  filter: blur(40px);
+}
+.blob-header-2 {
+  width: 55vw;
+  height: 55vw;
+  max-width: 560px;
+  max-height: 560px;
+  top: -10%;
+  right: -10%;
+  background: radial-gradient(ellipse at center, rgba(255,128,229,0.75) 0%, rgba(51,0,128,0.35) 60%, transparent 80%);
+  filter: blur(50px);
+}
+.blob-header-3 {
+  width: 45vw;
+  height: 45vw;
+  max-width: 450px;
+  max-height: 450px;
+  bottom: 0;
+  left: 25%;
+  background: radial-gradient(ellipse at center, rgba(141,95,211,0.7) 0%, rgba(170,170,255,0.3) 60%, transparent 80%);
+  filter: blur(35px);
+}
+.blob-header-4 {
+  width: 30vw;
+  height: 30vw;
+  max-width: 300px;
+  max-height: 300px;
+  bottom: 10%;
+  right: 5%;
+  background: radial-gradient(ellipse at center, rgba(51,0,128,0.8) 0%, rgba(141,95,211,0.4) 55%, transparent 80%);
+  filter: blur(30px);
+}
+
+/* Main section blobs — approximate meshgradient13 (#550044, #2a2aff, #ac939d, #87decd) */
+.blob-main-1 {
+  width: 80vw;
+  height: 80vw;
+  max-width: 900px;
+  max-height: 900px;
+  top: 5%;
+  left: -20%;
+  background: radial-gradient(ellipse at center, rgba(85,0,68,0.8) 0%, rgba(42,42,255,0.3) 55%, transparent 80%);
+  filter: blur(60px);
+}
+.blob-main-2 {
+  width: 65vw;
+  height: 65vw;
+  max-width: 750px;
+  max-height: 750px;
+  top: 20%;
+  right: -15%;
+  background: radial-gradient(ellipse at center, rgba(42,42,255,0.7) 0%, rgba(172,147,157,0.3) 55%, transparent 80%);
+  filter: blur(55px);
+}
+.blob-main-3 {
+  width: 55vw;
+  height: 55vw;
+  max-width: 650px;
+  max-height: 650px;
+  top: 50%;
+  left: 15%;
+  background: radial-gradient(ellipse at center, rgba(172,147,157,0.65) 0%, rgba(135,222,205,0.3) 55%, transparent 80%);
+  filter: blur(50px);
+}
+.blob-main-4 {
+  width: 60vw;
+  height: 60vw;
+  max-width: 700px;
+  max-height: 700px;
+  bottom: 0;
+  right: 5%;
+  background: radial-gradient(ellipse at center, rgba(135,222,205,0.6) 0%, rgba(85,0,68,0.3) 55%, transparent 80%);
+  filter: blur(55px);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   NAV
+   Scrolling pill. Press-hold-scroll while button held.
+   Antonio, all-caps, white. Sticky at top of viewport.
+   ───────────────────────────────────────────────────────────── */
+#nav {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  background: rgba(10,0,18,0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(170,170,255,0.18);
+  height: var(--nav-height);
+  padding: 0 0px;
+}
+#navSecondary{
+  position: relative;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  background: rgba(10,0,18,0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(170,170,255,0.18);
+  height: var(--nav-height);
+  padding: 0 0px;
+}
+
+#nav-menu-scroll-left-button,
+#nav-menu-scroll-right-button {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 100%;
+  border-radius: 0%;
+  background: rgba(141,95,211,0.22);
+  transition: background 0.18s;
+  z-index: 2;
+}
+
+#nav-menu-scroll-left-button:hover,
+#nav-menu-scroll-right-button:hover {
+  background: rgba(141,95,211,0.5);
+}
+
+#nav-menu-scroll-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Fade masks at scroll edges */
+#nav-menu-scroll-container::before,
+#nav-menu-scroll-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 24px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+#nav-menu-scroll-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(10,0,18,0.82), transparent);
+}
+#nav-menu-scroll-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(10,0,18,0.82), transparent);
+}
+
+#nav-menu-ul {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  padding: 0 8px;
+  height: var(--nav-height);
+  user-select: none;
+  flex-direction: row;       /* Items sit side-by-side */
+  justify-content: left;   /* Centers items horizontally */
+}
+
+#nav-menu-ul li a {
+  display: flex;
+  align-items: center;
+  padding: 6px 16px;
+  font-family: var(--font-heading);
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 999px;
+  transition: background 0.18s, color 0.18s;
+  height: 30px;
+}
+
+#nav-menu-ul li a:hover,
+#nav-menu-ul li a:focus-visible {
+  background: rgba(170,170,255,0.22);
+  color: var(--color-aaccff);
+  outline: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HEADER
+   meshgradient8 approximated: layered radial-gradients
+   Corner stops: #aaaaff (TL), #330080 (TR), #ff80e5 (BL), #8d5fd3 (BR)
+   ───────────────────────────────────────────────────────────── */
+#header {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  overflow: hidden;
+  /* Base fallback */
+  background-color: #330080;
+  /* Four-corner mesh approximation */
+  background:
+    radial-gradient(ellipse at 0% 0%,   rgba(170,170,255,0.95) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 0%,  rgba(51,0,128,0.95)   0%, transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(255,128,229,0.90) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(141,95,211,0.90) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(141,95,211,0.5) 0%, transparent 70%);
+  /* Hero image layers sit below; mesh gradient is now on ::before pseudo */
+  /* background: #1a0045; */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.75);
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HERO IMAGE CROSSFADE LAYERS
+   Both layers fill the header absolutely. Only one is visible
+   at a time. JS alternates which is "active" on track change.
+   background-size: cover  → fills frame, no whitespace
+   background-position: center center → always centered
+   background-repeat: no-repeat → never tiles
+   No stretching at any viewport size or aspect ratio.
+   ───────────────────────────────────────────────────────────── */
+.hero-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out;
+  will-change: opacity;
+}
+
+/* Whichever layer is active becomes visible */
+#header.hero-a-active #hero-layer-a,
+#header.hero-b-active #hero-layer-b {
+  opacity: 1;
+}
+
+/* Mesh gradient overlay — sits above hero image, below blobs.
+   Preserves the purple/pink atmosphere over any photograph.
+   Opacity reduced slightly vs original so hero art reads through. */
+#header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 0% 0%,   rgba(170,170,255,0.72) 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 0%,  rgba(51,0,128,0.72)   0%, transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(255,128,229,0.65) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(141,95,211,0.65) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(141,95,211,0.35)  0%, transparent 70%);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MUSIC PLAYER
+   White semi-transparent panel. opacity: 0.179487
+   ───────────────────────────────────────────────────────────── */
+#music-player {
+  position: relative;
+  z-index: 2;
+  background: rgba(255,255,255,0.179487);
+  /* backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); */
+  display: flex;
+  flex-direction: column;
+  padding: 0 0;
+  /*border-bottom: 1px solid rgba(141,95,211,0.25);*/
+  min-height: 80vh;             /* The container must have a height */
+  justify-content: flex-end; /* Pushes all items to the bottom */
+}
+
+/* ── Volume Control row ── */
+#music-player-volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  height: 36px;
+  padding: 25px 15px;
+  background: rgba(82,44,117,0.404389);  /* #93aca7 ~40% */
+  border-radius: 0;
+    backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px); 
+}
+
+#music-player-volume-control-lower-encoder,
+#music-player-volume-control-raise-encoder {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  transition: background 0.15s;
+}
+
+#music-player-volume-control-lower-encoder:hover,
+#music-player-volume-control-raise-encoder:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+/* Volume gradient bar: linearGradient396 #d994ff → transparent */
+#music-player-volume-control_indicator {
+  flex: 1;
+  margin: 0 8px;
+  height: 6px;
+  background: rgba(0,0,0,0.119122);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+#music-player-volume-control_indicator-fill {
+  height: 100%;
+  width: 70%;         /* JS sets this to current volume level */
+  background: linear-gradient(to right, #d994ff, transparent);
+  border-radius: 3px;
+  transition: width 0.12s ease;
+}
+
+/* ── Track Controls ── */
+#music-player-track-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  padding: 6px 16px;
+  background: rgba(172,157,51,0.131661);  /* #ac9d33 ~13% */
+  min-height: 70vh;
+
+}
+
+#music-player-track-controls-previous-track-button,
+#music-player-track-controls-pause-button,
+#music-player-track-controls-play-button,
+#music-player-track-controls-next-track-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(150,106,207,0.14);
+  width: 44px;
+  height: 44px;
+  transition: background 0.15s, transform 0.1s;
+}
+
+#music-player-track-controls-play-button,
+#music-player-track-controls-pause-button {
+  width: 52px;
+  height: 52px;
+  background: rgba(141,95,211,0.22);
+}
+
+#music-player-track-controls button:hover {
+  background: rgba(150,106,207,0.4);
+  transform: scale(1.07);
+}
+#music-player-track-controls button:active {
+  transform: scale(0.96);
+}
+
+/* ── Credits Row ── */
+#music-player-credits-row {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-height: 26px;
+}
+
+/* Left ~72%: intentional dark negative space */
+#music-player-song-credits-spacer {
+  flex: 0 0 0%;
+  background: rgba(0,0,0,0.119122);
+}
+
+/* Right ~28%: dark semi-transparent bg, text #aaccff, Antonio */
+#music-player-song-credits {
+  flex: 0 0 28%;
+  background: rgba(0,0,0,0.238245);
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+}
+
+#music-player-song-credits-text {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  letter-spacing: 0.444px;
+  color: var(--color-aaccff);
+  line-height: 1;
+}
+
+/* Inline display: "Artist Name / Song Title" */
+#music-player-song-credits-text li {
+  display: inline;
+}
+#music-player-song-credits-text li + li::before {
+  content: ' / ';
+  opacity: 0.7;
+}
+
+/* ── Track Progress ── */
+#music-player-track-progress {
+  width: 100%;
+  padding: 6px 8px 8px;
+  background: rgba(0,3,3,.81);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px); 
+  border-top: 1px rgba(33, 23, 54, 0.05) solid;
+  border-bottom: 1px rgba(0, 0, 0, 0.6) solid;
+}
+
+/* Custom range slider
+   Track: #d994ff fill, #ffd79a stroke
+   Thumb: radialGradient72 (#ff2fff → #ffc600), star/diamond shape */
+#track-seek-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 7px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+/* WebKit track */
+#track-seek-bar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 7px;
+  background: linear-gradient(
+    to right,
+    #d994ff var(--seek-fill, 0%),
+    rgba(217,148,255,0.22) var(--seek-fill, 0%)
+  );
+  border-radius: 4px;
+  border: 1px solid #000000;
+}
+
+/* Firefox track */
+#track-seek-bar::-moz-range-track {
+  width: 100%;
+  height: 7px;
+  background: rgba(233,59,50,0.8);
+  border-radius: 4px;
+  border: 1px solid #000000;
+}
+#track-seek-bar::-moz-range-progress {
+  height: 7px;
+  background: #d994ff;
+  border-radius: 4px 0 0 4px;
+}
+
+/* Thumb — diamond/star shape via clip-path */
+#track-seek-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -5px;
+  border-radius: 1px;
+  background: radial-gradient(circle at center, #ffe047 0%, #f7abff 100%);
+  border: 1.5px solid rgba(255,255,255,0.6);
+  transform: rotate(45deg);
+  cursor: pointer;
+  box-shadow: 3px 3px 2px rgba(0,47,0,0.6);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+#track-seek-bar::-webkit-slider-thumb:hover {
+  transform: rotate(45deg) scale(1.2);
+  box-shadow: 0 0 10px rgba(255,47,255,0.9);
+}
+
+#track-seek-bar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 1px;
+  background: radial-gradient(circle at center, #ffe047 0%, #f7abff 100%);
+  border: 1.5px solid rgba(255,255,255,0.6);
+  transform: rotate(45deg);
+  cursor: pointer;
+  box-shadow: 3px 3px 2px rgba(0,47,0,0.6);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MUSIC STORE
+   3-column grid. Full-bleed dark bar #1c1f24 ~21% beneath player.
+   ───────────────────────────────────────────────────────────── */
+#music-store {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 38fr 14fr 38fr;
+  align-items: center;
+  /* background: rgba(28,31,36,0.206897); */
+  background: rgba(0,3,0,0.6);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(4px);
+  /*border-top: 1px solid rgba(170,204,255,0.10);*/
+  padding: 12px 0;
+  gap: 0;
+}
+
+/* ── Mainstream outlets (Col 1) ── */
+#music-store-mainstream-outlets-menu,
+#music-store-direct-support-outlets-menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  gap: 10px;
+  padding: 8px 12px;
+}
+#music-store-direct-support-outlets-menu {
+  justify-content: start;
+  }
+#music-store-mainstream-outlets-menu li a,
+#music-store-direct-support-outlets-menu li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.15s, filter 0.15s;
+}
+
+#music-store-mainstream-outlets-menu li a:hover,
+#music-store-direct-support-outlets-menu li a:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.store-label {
+  font-family: var(--font-heading);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-aaccff);
+  text-align: center;
+  display: block;
+}
+
+/* ── Store Sign (Col 2) ── */
+#store-sign {
+  /* background: var(--color-store-sign-bg); */
+  padding: 14px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+  min-height: 80px;
+  position: relative;
+}
+
+#music-player-store-sign {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: nowrap;
+  color: rgba(255,255,255,0.72);
+  line-height: 1;
+  justify-content: center;
+}
+
+.store-sign-claim,
+.store-sign-word {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.store-sign-the {
+  font-family: var(--font-script);
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  font-weight: 500;
+  text-transform: none;
+  line-height: 1;
+}
+
+/* "Christian synthpop / wherever you stream music!" */
+#music-player-store-slogan {
+  font-family: var(--font-script);
+  font-size: clamp(0.7rem, 1.4vw, 0.92rem);
+  color: #fff;
+  text-align: center;
+  line-height: 0.65;
+  letter-spacing: 0.02em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MAIN
+   meshgradient13 approximated: layered radial-gradients
+   Corner stops: #550044 (TL), #2a2aff (TR), #ac939d (BL), #87decd (BR)
+   ───────────────────────────────────────────────────────────── */
+#main {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Clips blob translateY so parallax never extends document height */
+
+  background-color: #200030;
+  background:
+    radial-gradient(ellipse at 0% 0%,   rgba(85,0,68,0.92)   0%, transparent 55%),
+    radial-gradient(ellipse at 100% 0%,  rgba(42,42,255,0.85) 0%, transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(172,147,157,0.75) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(135,222,205,0.70) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(85,0,68,0.45) 0%, transparent 70%),
+    #1a0030;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CD CIRCLES
+   CSS-drawn, radialGradient1/5: #8d5fd3 → #a793ac
+   position:absolute; scroll with section (not fixed)
+   ───────────────────────────────────────────────────────────── */
+#fixed-background-image-CD-1,
+#fixed-background-image-CD-2 {
+  width: clamp(900px, 120vw, 380px);
+  height: clamp(900px, 120vw, 380px);
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #8d5fd3 0%, #a793ac 100%);
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.72;
+  object-fit: contain;
+  object-position: center;
+  bottom: -18%;
+  top: -18%;
+  /*box-shadow:
+    0 0 0 8px rgba(141,95,211,0.18),
+    0 0 0 16px rgba(167,147,172,0.09),
+    0 0 60px rgba(141,95,211,0.3);
+	*/
+}
+
+/* CD-1: Resources section — left side */
+#fixed-background-image-CD-1 {
+  top: 50%;
+  left: -8%;
+  transform: translateY(-50%);
+}
+
+/* CD-2: Mission section — right side */
+#fixed-background-image-CD-2 {
+  top: 50%;
+  right: -8%;
+  transform: translateY(-50%);
+}
+
+/* CD center hole */
+#fixed-background-image-CD-1::after,
+#fixed-background-image-CD-2::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14%;
+  height: 14%;
+  border-radius: 50%;
+  background: rgba(10,0,18,0.7);
+  box-shadow: 0 0 0 2px rgba(167,147,172,0.4);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   COVER ART
+   Sits between volume row and transport row inside #music-player.
+   Updated by JS on track change. Unsplash placeholder until
+   real artwork is dropped into /images/.
+   ───────────────────────────────────────────────────────────── */
+#music-player-cover-art {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 12px 0;
+  position: relative;
+  z-index: 3;
+}
+
+#music-player-cover-art-img {
+  width: 72px;
+  min-width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1.5px solid rgba(217,148,255,0.55);
+  box-shadow:
+    0 0 0 3px rgba(141,95,211,0.22),
+    0 4px 18px rgba(0,0,0,0.55);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: rgba(141,95,211,0.3);
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Spin briefly on track change — JS toggles this class */
+#music-player-cover-art-img.cover-spin {
+  animation: coverSpin 0.35s ease-out forwards;
+}
+
+@keyframes coverSpin {
+  0%   { transform: rotate(0deg)   scale(1);    opacity: 1; }
+  40%  { transform: rotate(-8deg)  scale(0.93); opacity: 0.6; }
+  100% { transform: rotate(0deg)   scale(1);    opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESOURCES SECTION
+   CSS Grid: figure left ~55%, article right ~45%
+   ───────────────────────────────────────────────────────────── */
+#resources-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  align-items: stretch;
+  min-height: 100vh;
+  padding: 0;
+  gap: 0;
+  overflow: visible;
+}
+
+#resources-figure {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  overflow: visible;
+}
+
+#resources-figure-image {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  display: block;
+   overflow: visible;
+}
+
+#resources-article {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem);
+  /* linearGradient25: #ff80e5 76% → transparent, left to right */
+  background: linear-gradient(to right, rgba(255,128,229,0.7613169) 0%, rgba(255,128,229,0) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+
+#resources-article-subheading {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.724138);
+
+}
+
+#resources-article-heading,
+#mission-article-heading,
+#people-article-heading,
+#contact-heading {
+  font-family: var(--font-script);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 500;
+  color: rgba(255,255,255,0.724138);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+  line-height: 0.9;
+  letter-spacing: 0;
+    text-align: center;
+}
+#resources-article-subheading,
+#mission-article-subheading,
+#people-article-subheading,
+#contact-article-subheading {
+    text-align: center;
+}
+
+#resources-article-text,
+#mission-article-text {
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1.5vw, 1rem);
+  line-height: 1.68;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Pill button — white fill, black stroke, Antonio spaced caps */
+#resources-article-button,
+#mission-article-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 28px;
+  align-self: center;
+  background: #fff;
+  color: #000;
+  border: 1.5px solid #000;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+#resources-article-button:hover,
+#mission-article-button:hover {
+  background: rgba(141,95,211,0.9);
+  color: #fff;
+  border-color: #8d5fd3;
+  box-shadow: 0 0 14px rgba(141,95,211,0.5);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CONTACT SECTION
+   Full-width heading above three equal columns
+   Background: #aaffaa ~24% opacity
+   ───────────────────────────────────────────────────────────── */
+#contact-section {
+  position: relative;
+  background: rgba(170,255,170,0.24);
+  padding: var(--section-pad-v) var(--section-pad-h);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#contact-heading {
+  text-align: center;
+  width: 100%;
+}
+
+#contact-columns-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+#contact-socials-menu,
+#contact-support-menu,
+#contact-office-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#contact-socials-menu-heading,
+#contact-support-menu-heading,
+#contact-office-menu-heading {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: .3em;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-weight: 500;
+  color: rgba(255,255,255,0.724138);
+  text-align: center;
+}
+
+#contact-socials-menu-items,
+#contact-support-menu-items,
+#contact-office-menu-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Square icon tiles ~45×45px */
+.contact-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  transition: transform 0.15s, filter 0.15s;
+  background: rgba(255,255,255,0.05);
+}
+
+.contact-tile:hover {
+  transform: scale(1.12) translateY(-2px);
+  filter: drop-shadow(0 4px 8px rgba(170,204,255,0.5));
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MISSION SECTION
+   CSS Grid: article left ~50%, figure right ~50%
+   Mirror of Resources layout
+   ───────────────────────────────────────────────────────────── */
+#missions-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: 50fr 50fr;
+  align-items: stretch;
+  min-height: 100vh;
+  padding: 0;
+  gap: 0;
+  overflow: visible;
+}
+
+#mission-article {
+  position: relative;
+  z-index: 3;
+  order: 1;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem);
+  /* linearGradient29: #ffb080 35% → transparent, left to right */
+  background: linear-gradient(to right, rgba(255,176,128,0.34979424) 0%, rgba(0,0,0,.3) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+
+#mission-article-subheading,
+.mission-sub {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.724138);
+}
+
+#mission_figure {
+  position: relative;
+  z-index: 2;
+  order: 2;
+  margin: 0;
+  overflow: hidden;
+  overflow: visible;
+}
+
+#mission-figure-image {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+  display: block;
+  overflow: visible;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   PEOPLE SECTION
+   CSS Grid: figure left ~50%, article right ~50%
+   Background: #ffe680 ~13% opacity (fill-opacity 0.153605)
+   ───────────────────────────────────────────────────────────── */
+#people-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: 50fr 50fr;
+  align-items: stretch;
+  min-height: 100vh;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  background: rgba(255,230,128,0.153605);
+}
+
+#people-figure {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  overflow: hidden;
+}
+
+#people-figure-image {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  object-fit: cover;
+}
+
+#people-article {
+  position: relative;
+  z-index: 2;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem);
+  background: rgba(255,230,128,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.people-intro-line {
+  font-family: var(--font-heading);
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.7);
+      text-align: center;
+}
+
+#people-article p {
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1.4vw, 0.98rem);
+  line-height: 1.72;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+
+#sprd-header-container .sprd-header__title, #sprd-header-container .sprd__headline {
+ display: none;
+}
+#sprd-header-container div.sprd-header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+#sprd-basket::before {
+	content: "Souvenir Shop";
+    font-family: var(--font-heading);
+	display: block;
+	font-size: 1.5rem;
+	text-transform: uppercase;
+}
+#sprd-startpage-teaser {
+	display: none;
+}
+nav.sprd-burgermenu, nav.sprd-burgermenu--open, div.sprd-burgermenu__inner{
+	z-index: 500 !important;
+}
+li.sprd-burgermenu__item--active{
+	min-width: 100vw;
+	padding: 0px;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   FOOTER
+   Minimal. Full-bleed. #483745 ~71% opacity. Centered.
+   ───────────────────────────────────────────────────────────── */
+#footer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(72,55,69,0.711599);
+  padding: 14px var(--section-pad-h);
+  text-align: center;
+}
+
+#footer-copyright-statement-text {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.68);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HIDDEN AUDIO ELEMENT
+   ───────────────────────────────────────────────────────────── */
+#audio-player {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE — TABLET (portrait and square)
+   Square SVG reference: equal-column layouts collapse or reflow
+   ───────────────────────────────────────────────────────────── */
+@media (orientation: portrait) and (max-aspect-ratio: 1/1) {
+  :root {
+    --section-pad-v: clamp(2.5rem, 6vw, 4rem);
+    --section-pad-h: clamp(1rem, 4vw, 2.5rem);
+  }
+  #nav-menu-ul {
+    flex-direction: row;       /* Items sit side-by-side */
+    justify-content: left;   /* Centers items horizontally */
+  }
+  /* Nav: tighter */
+  #nav-menu-ul li a {
+    padding: 5px 12px;
+    font-size: 2rem;
+  }
+
+  /* Music store: 3 cols → vertical stack in middle col */
+  #music-store {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+	padding-bottom: 0px;
+  }
+
+  #music-store-mainstream-outlets-menu {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: end;
+	padding-right: 4px;
+  }
+
+  #store-sign {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    order: 3;
+	display: flex;
+	flex-direction: row;
+	margin: 0px 0px;
+	padding: 0px 0px;
+	height: 1rem;
+	
+  }
+
+  #music-store-direct-support-outlets-menu {
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+	padding-left: 4px;
+  }
+
+  /* Resources + Mission: stack vertically */
+  #resources-section,
+  #missions-section {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+  #resources-section{
+  background-color: rgba(169, 150, 190, .5);
+  }
+  #resources-figure,
+  #mission_figure {
+    width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  }
+
+  #resources-figure-image,
+  #mission-figure-image {
+    height: clamp(200px, 100%, 380px);
+    min-height: 0;
+  }
+
+  #resources-article {
+	background: none;
+    padding: 0 6rem clamp(1rem, 4vw, 2.5rem);
+	justify-content: start;
+  }
+
+  #mission-article {
+    order: 1;
+	background: none;
+    padding: 0 6rem clamp(1rem, 4vw, 2.5rem);
+	justify-content: start;
+  }
+  #mission_figure {
+    order: 0;
+  }
+
+  /* CD circles: smaller */
+  #fixed-background-image-CD-1,
+  #fixed-background-image-CD-2 {
+    width: clamp(160px, 30vw, 260px);
+    height: clamp(160px, 30vw, 260px);
+    opacity: 0.4;
+  }
+
+  /* People: stack vertically */
+  #people-section {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+  #people-figure{
+	  height: 100vh;
+	  order: 2;
+	  grid-column: 1 / 1;
+    grid-row: 1;
+	z-index: 1;
+  }
+  #people-figure-image {
+    min-height: 100vh;
+  }
+
+  #people-article {
+    background: rgba(45,33,111,0.45);
+    padding: clamp(2rem, 5vw, 3.5rem) 6rem 3.3rem;
+	min-height: 50vh;
+	order: 1;
+    grid-column: 1 / 1;
+    grid-row: 1;
+	z-index: 2;
+  }
+  #resources-article-heading,
+  #mission-article-heading,
+  #contact-heading,
+  #people-article-heading {
+	  font-size: 6rem;
+	  color: lightgray;
+  }
+  #resources-article-subheading,
+  #mission-article-subheading,
+  #contact-subheading,
+  #people-article-subheading {
+	  font-size: 1.5rem;
+	  color: lightgray;
+  }
+  /* Contact: 3 cols → 1 col */
+  #contact-columns-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  #contact-socials-menu-heading,
+#contact-support-menu-heading,
+#contact-office-menu-heading {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: .3em;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.724138);
+  text-align: center;
+}
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE — MOBILE PORTRAIT (max-width: 540px)
+   Vertical SVG reference
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 540px) {
+  :root {
+    --nav-height: 40px;
+    --section-pad-v: 2rem;
+    --section-pad-h: 1rem;
+  }
+  #nav-menu-ul {
+    flex-direction: row;       /* Items sit side-by-side */
+    justify-content: left;   /* Centers items horizontally */
+  }
+  #nav-menu-ul li a {
+    padding: 4px 10px;
+    font-size: 1.52rem;
+    letter-spacing: 0.1em;
+  }
+
+  #music-player-track-controls-previous-track-button,
+  #music-player-track-controls-next-track-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  #music-player-track-controls-play-button,
+  #music-player-track-controls-pause-button {
+    width: 44px;
+    height: 44px;
+  }
+
+
+
+ #music-store {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+	padding-bottom: 0px;
+  }
+
+  #music-store-mainstream-outlets-menu {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: end;
+	padding-right: 4px;
+  }
+
+  #store-sign {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    order: 3;
+	display: flex;
+	flex-direction: row;
+	margin: 0px 0px;
+	padding: 0px 0px;
+	height: 1rem;
+	
+  }
+
+  #music-store-direct-support-outlets-menu {
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+	padding-left: 4px;
+  }
+
+  #music-player-store-sign {
+    font-size: 1rem;
+  }
+
+  .store-sign-claim,
+  .store-sign-word { font-size: 1rem; }
+  .store-sign-the  { font-size: 1.35rem; }
+
+  #music-player-store-slogan {
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  /* CD circles: hidden on smallest screens */
+  #fixed-background-image-CD-1,
+  #fixed-background-image-CD-2 {
+    display: none;
+  }
+
+  /* Section headings */
+  #resources-article-heading,
+  #mission-article-heading,
+  #people-article-heading,
+  #contact-heading {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  /* Footer */
+  #footer-copyright-statement-text {
+    font-size: 0.65rem;
+  }
+
+  /* Store icons: slightly smaller */
+  .store-icon svg,
+  .contact-tile svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .contact-tile {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FOCUS VISIBLE — accessibility
+   ───────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-aaccff);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   UTILITY
+   ───────────────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -1,5 +1,5 @@
 /**
- * KAI LAVATAI — CLAIM THE WORD
+ * KAI LAVATAI — CLAIM THE WORD!
  * js/blog.js
  *
  * Responsibilities:

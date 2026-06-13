@@ -18,7 +18,7 @@
    ================================================================ */
 const BLOG_CONFIG = {
   // Production Atom-to-JSON endpoint (no API key required)
-  endpoint: 'https://www.claimthewordllc.com/feeds/posts/default',
+  endpoint: 'https://claimtheword.blogspot.com/feeds/posts/default?alt=json&max-results=6&orderby=published',
   params: {
     alt:        'json',
     'max-results': '6',

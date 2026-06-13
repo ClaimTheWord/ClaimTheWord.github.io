@@ -17,9 +17,8 @@
    CONFIG
    ================================================================ */
 const BLOG_CONFIG = {
-  // Production Atom-to-JSON endpoint. 
-  // NOTE: If your custom domain fails CORS locally, switch this to your *.blogspot.com URL
-  endpoint: 'https://www.claimthewordllc.com/feeds/posts/default',
+  // ✅ Targets Blogger's open native CDN subdomain to guarantee CORS safety on GitHub Pages
+  endpoint: 'https://claimthewordllc.blogspot.com/feeds/posts/default',
   params: {
     alt:           'json',
     'max-results': '6',

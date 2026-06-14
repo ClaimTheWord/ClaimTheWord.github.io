@@ -24,20 +24,14 @@ const BLOG_CONFIG = {
    DOM REFERENCES
    ================================================================ */
 const feedOutput  = document.getElementById('blog-feed-output');
-const feedLoading = document.getElementById('blog-feed-loading');
-const feedError   = document.getElementById('blog-feed-error');
 const feedEmpty   = document.getElementById('blog-feed-empty');
-const retryBtn    = document.getElementById('blog-feed-retry-btn');
 
 /* ================================================================
    STATE
    ================================================================ */
 function showState(state) {
-  feedLoading.hidden = state !== 'loading';
-  feedError.hidden   = state !== 'error';
-  feedEmpty.hidden   = state !== 'empty';
-  feedOutput.hidden  = state !== 'posts';
-  feedLoading.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
+  feedEmpty.hidden  = state !== 'empty';
+  feedOutput.hidden = state !== 'posts';
 }
 
 /* ================================================================
@@ -190,8 +184,6 @@ function renderFeed(entries) {
    FETCH — reads local feed.json, no CORS involved
    ================================================================ */
 async function fetchFeed() {
-  showState('loading');
-
   const cached = cacheRead();
   if (cached) {
     renderFeed(cached);
@@ -201,27 +193,14 @@ async function fetchFeed() {
   try {
     const response = await fetch(BLOG_CONFIG.feedFile);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
     const data    = await response.json();
     const entries = data?.feed?.entry ?? [];
-
     cacheWrite(entries);
     renderFeed(entries);
-
   } catch (err) {
     console.error('[CTW Blog] Failed to load feed.json:', err.message);
-    showState('error');
+    showState('empty'); /* fail silently to visitor, log to console */
   }
-}
-
-/* ================================================================
-   RETRY
-   ================================================================ */
-if (retryBtn) {
-  retryBtn.addEventListener('click', () => {
-    try { localStorage.removeItem(BLOG_CONFIG.cacheKey); } catch {}
-    fetchFeed();
-  });
 }
 
 /* ================================================================
@@ -231,4 +210,3 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!feedOutput) return;
   fetchFeed();
 });
- 

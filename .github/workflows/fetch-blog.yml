@@ -1,0 +1,51 @@
+name: Fetch Blogger Feed
+
+"on":
+  schedule:
+    - cron: '0 */6 * * *'
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  fetch-feed:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch Blogger JSON feed
+        run: |
+          curl -fsSL \
+            "https://claimthewordllc.blogspot.com/feeds/posts/default?alt=json&max-results=10" \
+            -o feed_raw.json
+          echo "Feed fetched. Size: $(wc -c < feed_raw.json) bytes"
+
+      - name: Validate JSON
+        run: |
+          python3 -c "
+          import json
+          with open('feed_raw.json') as f:
+              data = json.load(f)
+          entries = data.get('feed', {}).get('entry', [])
+          print(f'Valid JSON. Entries found: {len(entries)}')
+          "
+
+      - name: Move to repo root
+        run: mv feed_raw.json feed.json
+
+      - name: Commit feed.json if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add feed.json
+          if git diff --cached --quiet; then
+            echo "feed.json unchanged — no commit needed."
+          else
+            git commit -m "chore: refresh Blogger feed [skip ci]"
+            git push
+          fi

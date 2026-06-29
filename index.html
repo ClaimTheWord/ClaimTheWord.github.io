@@ -26,13 +26,14 @@
     </button>
     <div id="nav-menu-scroll-container">
       <ul id="nav-menu-ul" role="list">
-        <li id="nav-menu-ul-media_li"><a href="#header">Media</a></li>
-        <li id="nav-menu-ul-resources_li"><a href="#resources-section">Resources</a></li>
-        <li id="nav-menu-ul-contact_li"><a href="#contact-section">Contact</a></li>
-        <li id="nav-menu-ul-mission_li"><a href="#missions-section">Mission</a></li>
-        <li id="nav-menu-ul-people_li"><a href="#people-section">People</a></li>
-        <li id="nav-menu-ul-support_li"><a href="#contact-section">Support</a></li>
+        <li id="nav-menu-ul-media_li"><a href="index.html#header">Media</a></li>
+        <li id="nav-menu-ul-resources_li"><a href="index.html#resources-section">Resources</a></li>
+        <li id="nav-menu-ul-contact_li"><a href="index.html#contact-section">Contact</a></li>
+        <li id="nav-menu-ul-mission_li"><a href="index.html#missions-section">Mission</a></li>
+        <li id="nav-menu-ul-people_li"><a href="index.html#people-section">People</a></li>
+        <li id="nav-menu-ul-support_li"><a href="index.html#contact-section">Support</a></li>
         <li id="nav-menu-ul-souvenirs_li"><a href="souvenirs.html">Souvenirs</a></li>
+        <li id="nav-menu-ul-blog_li" class="nav-active"><a href="blog.html">Blog</a></li>
       </ul>
     </div>
     <button id="nav-menu-scroll-right-button" aria-label="Scroll navigation right" tabindex="0">
@@ -279,7 +280,7 @@
       <!-- Left ~55%: Resources illustration -->
       <figure id="resources-figure">
         <img
-          id="resources-figure-image"
+		  id="resources-figure-image"
           src="images/resources-img.png"
           alt="Abstract worship light rays radiating upward through a cloudy sky"
           loading="lazy"
@@ -301,166 +302,168 @@
           because The Word was there at the beginning, and it will carry you
           all the way home.
         </p>
-        <button id="resources-article-button" type="button">More</button>
-      </article>
+        <a class="button-link-main-page" href="resources.html">
+			<button id="resources-article-button" type="button">More</button>
+		</a>
+	  </article>
 
     </section><!-- /#resources-section -->
 
-    <!-- ============================================================
+    <!-- ============================================================ 
          CONTACT SECTION
          CSS Grid: full-width heading above three equal columns
          Background: #aaffaa ~24% opacity
          ============================================================ -->
     <section id="contact-section" aria-labelledby="contact-heading">
+	<div id="contact-section-guts-wraper">
+		  <h1 id="contact-heading">Contact</h1>
 
-      <h1 id="contact-heading">Contact</h1>
+		  <div id="contact-columns-grid">
 
-      <div id="contact-columns-grid">
+			<!-- Column: Socials -->
+			<div id="contact-socials-menu">
+			  <h3 id="contact-socials-menu-heading">Socials</h3>
+			  <ul id="contact-socials-menu-items" aria-label="Social media links">
+				<li id="contact-socials-menu-items-youtube">
+				  <a href="#" aria-label="YouTube" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <path d="M9,15.5 C9,13 11,11 13.5,11 H31.5 C34,11 36,13 36,15.5 V29.5 C36,32 34,34 31.5,34 H13.5 C11,34 9,32 9,29.5 Z" fill="#cc0000"/>
+					  <polygon points="19,17 29,22.5 19,28" fill="white"/>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-socials-menu-items-instagram">
+				  <a href="#" aria-label="Instagram" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <rect x="10" y="10" width="25" height="25" rx="7" fill="none" stroke="url(#ig-grad)" stroke-width="2.5"/>
+					  <circle cx="22.5" cy="22.5" r="7" fill="none" stroke="url(#ig-grad)" stroke-width="2.2"/>
+					  <circle cx="30.5" cy="14.5" r="1.8" fill="url(#ig-grad)"/>
+					  <defs>
+						<linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+						  <stop offset="0%" stop-color="#f09433"/>
+						  <stop offset="25%" stop-color="#e6683c"/>
+						  <stop offset="50%" stop-color="#dc2743"/>
+						  <stop offset="75%" stop-color="#cc2366"/>
+						  <stop offset="100%" stop-color="#bc1888"/>
+						</linearGradient>
+					  </defs>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-socials-menu-items-tiktok">
+				  <a href="#" aria-label="TikTok" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <path d="M28,10 C28,14 31,17 35,17 V22 C31.5,22 28.5,20.8 26.5,18.8 V29 C26.5,33 23,36 19,36 C15,36 11.5,33 11.5,29 C11.5,25 15,22 19,22 C19.5,22 20,22.1 20.5,22.2 V27.5 C20,27.3 19.5,27.2 19,27.2 C17.5,27.2 16.3,28.4 16.3,29.9 C16.3,31.4 17.5,32.6 19,32.6 C20.5,32.6 21.7,31.4 21.7,29.9 C21.7,29.8 21.7,10 21.7,10 Z" fill="white"/>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-socials-menu-items-gab">
+				  <a href="#" aria-label="Gab" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <text x="22.5" y="29" text-anchor="middle" font-family="Antonio, sans-serif" font-size="16" font-weight="700" fill="white">GAB</text>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-socials-menu-items-tumblr">
+				  <a href="#" aria-label="Tumblr" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <path d="M21,10 H25 V16 H30 V20 H25 V29 C25,31 26,32 28,32 H30 V36 H26 C22,36 20,33.5 20,30 V20 H17 V16 H20 V10 Z" fill="white"/>
+					</svg>
+				  </a>
+				</li>
+			  </ul>
+			</div>
 
-        <!-- Column: Socials -->
-        <div id="contact-socials-menu">
-          <h3 id="contact-socials-menu-heading">Socials</h3>
-          <ul id="contact-socials-menu-items" aria-label="Social media links">
-            <li id="contact-socials-menu-items-youtube">
-              <a href="#" aria-label="YouTube" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <path d="M9,15.5 C9,13 11,11 13.5,11 H31.5 C34,11 36,13 36,15.5 V29.5 C36,32 34,34 31.5,34 H13.5 C11,34 9,32 9,29.5 Z" fill="#cc0000"/>
-                  <polygon points="19,17 29,22.5 19,28" fill="white"/>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-socials-menu-items-instagram">
-              <a href="#" aria-label="Instagram" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <rect x="10" y="10" width="25" height="25" rx="7" fill="none" stroke="url(#ig-grad)" stroke-width="2.5"/>
-                  <circle cx="22.5" cy="22.5" r="7" fill="none" stroke="url(#ig-grad)" stroke-width="2.2"/>
-                  <circle cx="30.5" cy="14.5" r="1.8" fill="url(#ig-grad)"/>
-                  <defs>
-                    <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#f09433"/>
-                      <stop offset="25%" stop-color="#e6683c"/>
-                      <stop offset="50%" stop-color="#dc2743"/>
-                      <stop offset="75%" stop-color="#cc2366"/>
-                      <stop offset="100%" stop-color="#bc1888"/>
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-socials-menu-items-tiktok">
-              <a href="#" aria-label="TikTok" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <path d="M28,10 C28,14 31,17 35,17 V22 C31.5,22 28.5,20.8 26.5,18.8 V29 C26.5,33 23,36 19,36 C15,36 11.5,33 11.5,29 C11.5,25 15,22 19,22 C19.5,22 20,22.1 20.5,22.2 V27.5 C20,27.3 19.5,27.2 19,27.2 C17.5,27.2 16.3,28.4 16.3,29.9 C16.3,31.4 17.5,32.6 19,32.6 C20.5,32.6 21.7,31.4 21.7,29.9 C21.7,29.8 21.7,10 21.7,10 Z" fill="white"/>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-socials-menu-items-gab">
-              <a href="#" aria-label="Gab" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <text x="22.5" y="29" text-anchor="middle" font-family="Antonio, sans-serif" font-size="16" font-weight="700" fill="white">GAB</text>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-socials-menu-items-tumblr">
-              <a href="#" aria-label="Tumblr" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <path d="M21,10 H25 V16 H30 V20 H25 V29 C25,31 26,32 28,32 H30 V36 H26 C22,36 20,33.5 20,30 V20 H17 V16 H20 V10 Z" fill="white"/>
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
+			<!-- Column: Support -->
+			<div id="contact-support-menu">
+			  <h3 id="contact-support-menu-heading">Support</h3>
+			  <ul id="contact-support-menu-items" aria-label="Music platform links">
+				<li id="contact-support-menu-items-youtube-music">
+				  <a href="#" aria-label="YouTube Music" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <circle cx="22.5" cy="22.5" r="12" fill="#cc0000"/>
+					  <polygon points="18,16 29.5,22.5 18,29" fill="white"/>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-support-menu-items-apple-music">
+				  <a href="#" aria-label="Apple Music" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <path d="M30,13 C30,13 25,16 24,20 C27,20 32,17.5 32,13 Z" fill="#fa233b"/>
+					  <path d="M18,19 C14,19 12,23 12,27 C12,33 16,36 20,36 C22,36 23,35 24.5,35 C26,35 27,36 29,36 C33,36 35,32 35,27 C35,24 33,21 30,20 C29,19.5 28,19.2 26,19 C24,19 22.5,20 20.5,20 C19.5,20 18.5,19 18,19 Z" fill="#fa233b"/>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-support-menu-items-bandcamp">
+				  <a href="#" aria-label="Bandcamp" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <path d="M8,29 L19,13 H37 L26,29 Z" fill="#1da0c3"/>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-support-menu-items-spotify">
+				  <a href="#" aria-label="Spotify" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <circle cx="22.5" cy="22.5" r="13" fill="#1db954"/>
+					  <path d="M15 19 C19.5 16.5 27 16.5 31 18.5 M15 23 C19.5 20.5 26.5 20.5 31 22.5 M15 27 C19 25 26 25 30.5 27" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"/>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-support-menu-items-subvert">
+				  <a href="#" aria-label="Subvert" rel="noopener" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <text x="22.5" y="29" text-anchor="middle" font-family="Antonio, sans-serif" font-size="18" font-weight="700" fill="white">S</text>
+					</svg>
+				  </a>
+				</li>
+			  </ul>
+			</div>
 
-        <!-- Column: Support -->
-        <div id="contact-support-menu">
-          <h3 id="contact-support-menu-heading">Support</h3>
-          <ul id="contact-support-menu-items" aria-label="Music platform links">
-            <li id="contact-support-menu-items-youtube-music">
-              <a href="#" aria-label="YouTube Music" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <circle cx="22.5" cy="22.5" r="12" fill="#cc0000"/>
-                  <polygon points="18,16 29.5,22.5 18,29" fill="white"/>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-support-menu-items-apple-music">
-              <a href="#" aria-label="Apple Music" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <path d="M30,13 C30,13 25,16 24,20 C27,20 32,17.5 32,13 Z" fill="#fa233b"/>
-                  <path d="M18,19 C14,19 12,23 12,27 C12,33 16,36 20,36 C22,36 23,35 24.5,35 C26,35 27,36 29,36 C33,36 35,32 35,27 C35,24 33,21 30,20 C29,19.5 28,19.2 26,19 C24,19 22.5,20 20.5,20 C19.5,20 18.5,19 18,19 Z" fill="#fa233b"/>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-support-menu-items-bandcamp">
-              <a href="#" aria-label="Bandcamp" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <path d="M8,29 L19,13 H37 L26,29 Z" fill="#1da0c3"/>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-support-menu-items-spotify">
-              <a href="#" aria-label="Spotify" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <circle cx="22.5" cy="22.5" r="13" fill="#1db954"/>
-                  <path d="M15 19 C19.5 16.5 27 16.5 31 18.5 M15 23 C19.5 20.5 26.5 20.5 31 22.5 M15 27 C19 25 26 25 30.5 27" stroke="black" stroke-width="2" fill="none" stroke-linecap="round"/>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-support-menu-items-subvert">
-              <a href="#" aria-label="Subvert" rel="noopener" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <text x="22.5" y="29" text-anchor="middle" font-family="Antonio, sans-serif" font-size="18" font-weight="700" fill="white">S</text>
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
+			<!-- Column: Office -->
+			<div id="contact-office-menu">
+			  <h3 id="contact-office-menu-heading">Office</h3>
+			  <ul id="contact-office-menu-items" aria-label="Contact information">
+				<li id="contact-office-menu-items-phone">
+				  <a href="tel:+1-360-555-0100" aria-label="Phone" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <path d="M15,11 C14,11 12,13 12,15 C12,26 19,33 30,33 C32,33 34,31 34,30 L31,26 C30,25 29,25 28,26 L26.5,27.5 C25,27 22,24 21.5,22.5 L23,21 C24,20 24,19 23,18 Z" fill="white"/>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-office-menu-items-email">
+				  <a href="mailto:hello@claimtheword.com" aria-label="Email" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <rect x="8" y="14" width="29" height="20" rx="3" fill="none" stroke="white" stroke-width="2"/>
+					  <path d="M8,17 L22.5,26 L37,17" stroke="white" stroke-width="2" fill="none"/>
+					</svg>
+				  </a>
+				</li>
+				<li id="contact-office-menu-items-address">
+				  <a href="#" aria-label="Address — Sequim, WA" class="contact-tile">
+					<svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
+					  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
+					  <path d="M22.5,9 C18,9 14,13 14,17.5 C14,24 22.5,36 22.5,36 C22.5,36 31,24 31,17.5 C31,13 27,9 22.5,9 Z" fill="none" stroke="white" stroke-width="2"/>
+					  <circle cx="22.5" cy="17.5" r="3.5" fill="white"/>
+					</svg>
+				  </a>
+				</li>
+			  </ul>
+			</div>
 
-        <!-- Column: Office -->
-        <div id="contact-office-menu">
-          <h3 id="contact-office-menu-heading">Office</h3>
-          <ul id="contact-office-menu-items" aria-label="Contact information">
-            <li id="contact-office-menu-items-phone">
-              <a href="tel:+1-360-555-0100" aria-label="Phone" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <path d="M15,11 C14,11 12,13 12,15 C12,26 19,33 30,33 C32,33 34,31 34,30 L31,26 C30,25 29,25 28,26 L26.5,27.5 C25,27 22,24 21.5,22.5 L23,21 C24,20 24,19 23,18 Z" fill="white"/>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-office-menu-items-email">
-              <a href="mailto:hello@claimtheword.com" aria-label="Email" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <rect x="8" y="14" width="29" height="20" rx="3" fill="none" stroke="white" stroke-width="2"/>
-                  <path d="M8,17 L22.5,26 L37,17" stroke="white" stroke-width="2" fill="none"/>
-                </svg>
-              </a>
-            </li>
-            <li id="contact-office-menu-items-address">
-              <a href="#" aria-label="Address — Sequim, WA" class="contact-tile">
-                <svg viewBox="0 0 45 45" width="45" height="45" aria-hidden="true">
-                  <rect width="45" height="45" rx="8" fill="rgba(255,255,255,0.15)"/>
-                  <path d="M22.5,9 C18,9 14,13 14,17.5 C14,24 22.5,36 22.5,36 C22.5,36 31,24 31,17.5 C31,13 27,9 22.5,9 Z" fill="none" stroke="white" stroke-width="2"/>
-                  <circle cx="22.5" cy="17.5" r="3.5" fill="white"/>
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-      </div><!-- /#contact-columns-grid -->
-
+		  </div><!-- /#contact-columns-grid -->
+		</div> <!-- /#contact-section-guts-wraper -->
     </section><!-- /#contact-section -->
 
     <!-- ============================================================

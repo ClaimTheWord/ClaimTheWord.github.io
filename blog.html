@@ -70,11 +70,25 @@
         <p id="blog-section-tagline">Ministry reflections, music notes &amp; gospel truth.</p>
       </header>
 
+      <!-- ── Feed state: empty ── -->
+      <div id="blog-feed-empty" class="blog-feed-state" hidden>
+        <p>No posts yet — check back soon.</p>
+      </div>
+
       <!-- ── Feed output — .synth-blog-feed namespace ── -->
       <!-- JS builds <article> cards here.
            .synth-blog-feed scopes all Blogger-sourced HTML so inline
            styles from the Blogger editor cannot override global layout. -->
       <div id="blog-feed-output" class="synth-blog-feed" aria-label="Blog posts" hidden></div>
+
+      <!-- ── Archive link — always present, points to the full Blogger archive.
+           Frames the 10-post cap as a deliberate handoff to the canonical
+           source rather than a limitation, regardless of total post count. ── -->
+      <div id="blog-archive-link-wrapper">
+        <a id="blog-archive-link" href="https://claimthewordllc.blogspot.com/" rel="noopener" target="_blank">
+          Browse the full archive on Blogger →
+        </a>
+      </div>
 
     </section><!-- /#blog-section -->
 

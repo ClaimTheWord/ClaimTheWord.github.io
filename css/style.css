@@ -107,6 +107,11 @@ body {
   max-width: 1200px;
   display: flex;
   flex-direction: column;
+	overflow-x: visible;
+}
+
+#main {
+	overflow-x: visible;
 }
 
 a {
@@ -870,14 +875,14 @@ button {
   min-height: 100vh;
   padding: 0;
   gap: 0;
-  overflow: visible;
+  overflow-x: visible;
 }
 
 #resources-figure {
   position: relative;
   z-index: 2;
   margin: 0;
-  overflow: visible;
+  overflow-x: visible;
 }
 
 #resources-figure-image {
@@ -886,7 +891,8 @@ button {
   min-height: 100vh;
   object-fit: cover;
   display: block;
-   overflow: visible;
+  filter: brightness(1) invert(0);
+  overflow-x: visible;
 }
 
 #resources-article {
@@ -940,6 +946,10 @@ button {
   text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
+.button-link-main-page {
+	text-align: center;
+}
+
 /* Pill button — white fill, black stroke, Antonio spaced caps */
 #resources-article-button,
 #mission-article-button {
@@ -959,6 +969,7 @@ button {
   letter-spacing: 0.14em;
   cursor: pointer;
   transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  text-align: center;
 }
 
 #resources-article-button:hover,
@@ -976,17 +987,40 @@ button {
    ───────────────────────────────────────────────────────────── */
 #contact-section {
   position: relative;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  
   background: rgba(170,255,170,0.24);
-  padding: var(--section-pad-v) var(--section-pad-h);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
+  background-image: url(../images/contact-section-background-image.png);
+  background-attachment: cover;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  background-blend-mode: screen;
+  background-repeat: no-repeat;
+
   min-height: 100vh;
   overflow: hidden;
 }
+#contact-section-guts-wraper {
+	grid-column: 1 / span 1;
+	grid-row: 1 / span 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	gap: 2rem;
+	  /* Semi-transparent background */
+	  background-color: rgba(255, 153, 255, 0.25); 
+	  
+	  /* The backdrop effect */
+	  backdrop-filter: blur(5.5px); 
+	  
+	  /* Safari support prefix */
+	  -webkit-backdrop-filter: blur(5.5px); 
 
+}
 #contact-heading {
   text-align: center;
   width: 100%;
@@ -1060,12 +1094,12 @@ button {
   min-height: 100vh;
   padding: 0;
   gap: 0;
-  overflow: visible;
+  overflow-x: visible;
 }
 
 #mission-article {
   position: relative;
-  z-index: 3;
+  z-index: 2;
   order: 1;
   padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem);
   /* linearGradient29: #ffb080 35% → transparent, left to right */
@@ -1088,20 +1122,29 @@ button {
 
 #mission_figure {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   order: 2;
   margin: 0;
-  overflow: visible;
+  overflow-x: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-x: visible;
+  padding: 2em 0;
 }
 
 #mission-figure-image {
   width: 100%;
   height: 100%;
-  min-height: 100vh;
+  max-height: 700px;
   object-fit: cover;
   display: block;
-  overflow: visible;
+  overflow-x: visible;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
 }
+
+
 
 /* ─────────────────────────────────────────────────────────────
    PEOPLE SECTION
@@ -1303,14 +1346,14 @@ li.sprd-burgermenu__item--active{
 
   #resources-article {
 	background: none;
-    padding: 0 6rem clamp(1rem, 4vw, 2.5rem);
+    padding: 2em 3em 4em;
 	justify-content: start;
   }
 
   #mission-article {
     order: 1;
 	background: none;
-    padding: 0 6rem clamp(1rem, 4vw, 2.5rem);
+    padding: 2em 3em 4em;
 	justify-content: start;
   }
   #mission_figure {
@@ -1343,12 +1386,27 @@ li.sprd-burgermenu__item--active{
 
   #people-article {
     background: rgba(45,33,111,0.45);
-    padding: clamp(2rem, 5vw, 3.5rem) 6rem 3.3rem;
+    padding: 2em 3em .5em;
 	min-height: 50vh;
 	order: 1;
     grid-column: 1 / 1;
     grid-row: 1;
 	z-index: 2;
+	
+	  /* Semi-transparent background */
+	  background-color: rgba(255, 153, 255, 0.25); 
+	  
+	  /* The backdrop effect */
+	  backdrop-filter: blur(5.5px); 
+	  
+	  /* Safari support prefix */
+	  -webkit-backdrop-filter: blur(5.5px);
+	
+  }
+  #resources-article p,
+  #mission-article p,
+  #people-article p {
+	  font-size: clamp(11pt, 3.72vw, 17pt);
   }
   #resources-article-heading,
   #mission-article-heading,

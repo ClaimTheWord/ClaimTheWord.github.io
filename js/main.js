@@ -17,27 +17,132 @@
    Replace src values with real self-hosted MP3s before launch.
    ================================================================ */
 const TRACKS = [
-  {
-    artist: 'Kai Lavatai',
-    title:  'Saved',
-    src:    'audio/track-01.mp3',
-    cover:  'images/cover-track-01.png',
-    hero:   'images/cover-track-01.png'
-  },
-  {
-    artist: 'Kai Lavatai',
-    title:  'Born Again',
-    src:    'audio/track-02.mp3',
-    cover:  'images/cover-track-02.png',
-    hero:   'images/cover-track-02.png'
-  },
-  {
-    artist: 'Kai Lavatai',
-    title:  'The Word',
-    src:    'audio/track-03.mp3',
-    cover:  'images/cover-track-03.png',
-    hero:   'images/cover-track-03.png'
-  }
+{
+	artist: 'Kai Lavatai',
+	title:  'Born to Priase Jesus',
+	src:    'audio/track-01.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Faith Alone',
+	src:    'audio/track-02.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Saved!',
+	src:    'audio/track-03.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Chosen Generation',
+	src:    'audio/track-04.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Move to the Rhythm of Jesus',
+	src:    'audio/track-05.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'The Word',
+	src:    'audio/track-06.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'In My Father's House',
+	src:    'audio/track-07.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Born Again',
+	src:    'audio/track-08.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Renewed',
+	src:    'audio/track-09.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Jesus Christ the King of Kings',
+	src:    'audio/track-10.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Hosanna',
+	src:    'audio/track-11.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'God Bless My Neighbors',
+	src:    'audio/track-12.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Dance for Jesus',
+	src:    'audio/track-13.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Get Up Get Into Him',
+	src:    'audio/track-14.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Here for the King',
+	src:    'audio/track-15.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Purify My Heart',
+	src:    'audio/track-16.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'Thank You Lord',
+	src:    'audio/track-17.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+},
+{
+	artist: 'Kai Lavatai',
+	title:  'He Loves You',
+	src:    'audio/track-18.mp3',
+	cover:  'images/cover-track-01.png',
+	hero:   'images/cover-track-01.png'
+}
 ];
 
 /* ================================================================

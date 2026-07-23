@@ -17,27 +17,132 @@
    Replace src values with real self-hosted MP3s before launch.
    ================================================================ */
 const TRACKS = [
-  {
-    artist: 'Kai Lavatai',
-    title:  'Saved',
-    src:    'audio/track-01.mp3',
-    cover:  'images/cover-track-01.png',
-    hero:   'images/cover-track-01.png'
-  },
-  {
-    artist: 'Kai Lavatai',
-    title:  'Born Again',
-    src:    'audio/track-02.mp3',
-    cover:  'images/cover-track-02.png',
-    hero:   'images/cover-track-02.png'
-  },
-  {
-    artist: 'Kai Lavatai',
-    title:  'The Word',
-    src:    'audio/track-03.mp3',
-    cover:  'images/cover-track-03.png',
-    hero:   'images/cover-track-03.png'
-  }
+	{
+		artist: 'Kai Lavatai',
+		title:  'Born to Priase Jesus',
+		src:    'audio/track-01.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Faith Alone',
+		src:    'audio/track-02.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Saved!',
+		src:    'audio/track-03.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Chosen Generation',
+		src:    'audio/track-04.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Move to the Rhythm of Jesus',
+		src:    'audio/track-05.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'The Word',
+		src:    'audio/track-06.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  "In My Father's House",
+		src:    'audio/track-07.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Born Again',
+		src:    'audio/track-08.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Renewed',
+		src:    'audio/track-09.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Jesus Christ the King of Kings',
+		src:    'audio/track-10.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Hosanna',
+		src:    'audio/track-11.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'God Bless My Neighbors',
+		src:    'audio/track-12.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Dance for Jesus',
+		src:    'audio/track-13.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Get Up Get Into Him',
+		src:    'audio/track-14.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Here for the King',
+		src:    'audio/track-15.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Purify My Heart',
+		src:    'audio/track-16.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'Thank You Lord',
+		src:    'audio/track-17.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	},
+	{
+		artist: 'Kai Lavatai',
+		title:  'He Loves You',
+		src:    'audio/track-18.mp3',
+		cover:  'images/cover-track-01.png',
+		hero:   'images/cover-track-01.png'
+	}
 ];
 
 /* ================================================================
@@ -291,17 +396,22 @@ audioEl.addEventListener('pause', () => {
 });
 
 /* ================================================================
-   6. NAV PRESS-HOLD-SCROLL
+   6. NAV PRESS-HOLD-SCROLL + SWIPE
    Desktop: scroll while mouse held over left/right button.
    Mobile: scroll while finger held; ceases on touchend/touchleave.
    Continuous only while interaction is active — not repeating auto.
+
+   Also supports direct swipe/drag on the nav strip itself —
+   touch drag and mouse drag both scroll the container 1:1 with
+   finger/cursor movement, independent of the arrow buttons.
    ================================================================ */
 
 const navContainer   = document.getElementById('nav-menu-scroll-container');
 const navLeftBtn     = document.getElementById('nav-menu-scroll-left-button');
 const navRightBtn    = document.getElementById('nav-menu-scroll-right-button');
 
-const NAV_SCROLL_SPEED = 3; // px per animation frame
+// (a) Press-hold arrow scroll speed — increased for snappier tablet/touch UX
+const NAV_SCROLL_SPEED = 9; // px per animation frame (was 3)
 let navScrollRAF = null;
 let navScrollDir = 0; // -1 = left, +1 = right, 0 = stopped
 
@@ -352,6 +462,69 @@ if (navRightBtn) {
   if (navLeftBtn)  navLeftBtn.addEventListener(evt,  stopNavScroll);
   if (navRightBtn) navRightBtn.addEventListener(evt, stopNavScroll);
 });
+
+/* ── (b) Swipe / drag scroll directly on the nav strip ──────────
+   Works alongside the arrow buttons — neither interferes with
+   the other since they target different elements and both
+   simply mutate navContainer.scrollLeft. */
+
+let navDragActive  = false;
+let navDragStartX  = 0;
+let navDragStartScrollLeft = 0;
+let navDragMoved   = false; // distinguishes a drag from a tap on a nav link
+
+function navDragStart(clientX) {
+  navDragActive = true;
+  navDragMoved  = false;
+  navDragStartX = clientX;
+  navDragStartScrollLeft = navContainer.scrollLeft;
+}
+
+function navDragMove(clientX) {
+  if (!navDragActive) return;
+  const delta = clientX - navDragStartX;
+  if (Math.abs(delta) > 4) navDragMoved = true; // small threshold filters out accidental taps
+  navContainer.scrollLeft = navDragStartScrollLeft - delta;
+}
+
+function navDragEnd() {
+  navDragActive = false;
+}
+
+if (navContainer) {
+  // Touch — swipe
+  navContainer.addEventListener('touchstart', (e) => {
+    navDragStart(e.touches[0].clientX);
+  }, { passive: true });
+
+  navContainer.addEventListener('touchmove', (e) => {
+    navDragMove(e.touches[0].clientX);
+  }, { passive: true });
+
+  navContainer.addEventListener('touchend', navDragEnd);
+  navContainer.addEventListener('touchcancel', navDragEnd);
+
+  // Mouse — click-and-drag (desktop trackpads / mouse users get the same UX)
+  navContainer.addEventListener('mousedown', (e) => {
+    navDragStart(e.clientX);
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (navDragActive) navDragMove(e.clientX);
+  });
+
+  window.addEventListener('mouseup', navDragEnd);
+
+  // Suppress the click-through on nav links if the gesture was actually
+  // a drag, so dragging across "Media / Resources / Contact" doesn't
+  // accidentally trigger navigation on release.
+  navContainer.addEventListener('click', (e) => {
+    if (navDragMoved) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+}
 
 /* ================================================================
    7. SCROLL-DRIVEN BLOB PARALLAX

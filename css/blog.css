@@ -45,6 +45,9 @@
   box-shadow: 0 0 14px rgba(141,95,211,0.5);
 }
 
+p { 
+	text-indent: 2em;
+}
 /* ─────────────────────────────────────────────────────────────
    BLOG SECTION WRAPPER
    Full-bleed section. Min-height 100vh matches other sections.

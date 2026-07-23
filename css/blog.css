@@ -48,6 +48,11 @@
 p { 
 	text-indent: 2em;
 }
+
+h3 {
+	Padding: 1.5em 0;
+}
+
 /* ─────────────────────────────────────────────────────────────
    BLOG SECTION WRAPPER
    Full-bleed section. Min-height 100vh matches other sections.

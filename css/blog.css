@@ -50,13 +50,9 @@ p {
 }
 
 h3 {
-	Padding: 5vw 0px;
-	margin-top: 1.7rem;
+	padding: 1rem;
+	
 }
-
-
-
-
 /* ─────────────────────────────────────────────────────────────
    BLOG SECTION WRAPPER
    Full-bleed section. Min-height 100vh matches other sections.

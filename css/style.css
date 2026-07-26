@@ -96,11 +96,15 @@ body {
   font-family: var(--font-body);
   overflow-x: hidden;
   background: #0a0012;
+  background-image: url('file:///C:/Users/water/Documents/ClaimTheWord.github.io-main/images/news.png');
+  background-attachment: fixed;
+  back
   color: #fff;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center; /* horizontally centers #master-wrapper */
+
 }
 #master-wrapper {
   width: 100%;
@@ -108,7 +112,12 @@ body {
   display: flex;
   flex-direction: column;
 	overflow-x: visible;
+	box-shadow: 0px 0px 90px DarkSlateGray;
+	border-left:1px solid Indigo;
+	border-right:1px solid Indigo;
+	opacity: 0.89;
 }
+
 
 #main {
 	overflow-x: visible;
@@ -991,12 +1000,12 @@ button {
   grid-template-columns: 100%;
   grid-template-rows: 100%;
   
-  background: rgba(170,255,170,0.24);
+  background: rgba(0, 51, 102, 0.33);
   background-image: url(../images/contact-section-background-image.png);
   background-attachment: cover;
   background-position-x: 50%;
   background-position-y: 50%;
-  background-blend-mode: screen;
+  background-blend-mode: darken;
   background-repeat: no-repeat;
 
   min-height: 100vh;
@@ -1012,7 +1021,7 @@ button {
 	height: 100%;
 	gap: 2rem;
 	  /* Semi-transparent background */
-	  background-color: rgba(255, 153, 255, 0.25); 
+	  background-color: rgba(15, 77, 31, 0.25); 
 	  
 	  /* The backdrop effect */
 	  backdrop-filter: blur(5.5px); 
@@ -1344,6 +1353,7 @@ li.sprd-burgermenu__item--active{
   #mission-figure-image {
     height: clamp(200px, 100%, 380px);
     min-height: 0;
+	overflow: visible;
   }
 
   #resources-article {

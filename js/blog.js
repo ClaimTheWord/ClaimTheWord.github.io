@@ -1,329 +1,212 @@
-/* =============================================================
-   KAI LAVATAI — CLAIM THE WORD
-   css/blog.css
-   Scoped blog feed styles. All Blogger-sourced HTML is
-   contained under .synth-blog-feed to prevent inline styles
-   from the Blogger editor overriding global layout or fonts.
-   ============================================================= */
+/**
+ * KAI LAVATAI — CLAIM THE WORD
+ * js/blog.js
+ *
+ * Reads feed.json — a static file committed to the repo by the
+ * GitHub Action (.github/workflows/fetch-blog.yml) which fetches
+ * the Blogger feed server-side every 6 hours.
+ *
+ * No CORS issues. No JSONP. No API keys. Works on GitHub Pages.
+ */
 
-/* ─────────────────────────────────────────────────────────────
-   ARCHIVE LINK
-   Always present below the feed. Quiet handoff to the canonical
-   Blogger archive — frames the 10-post cap as intentional, not
-   a cutoff. Matches the article pill-button typographic language.
-   ───────────────────────────────────────────────────────────── */
-#blog-archive-link-wrapper {
-  width: 100%;
-  max-width: 800px;
-  padding: 0 clamp(1.25rem, 5vw, 4rem) clamp(3rem, 7vw, 5rem);
-  display: flex;
-  justify-content: center;
-}
+'use strict';
 
-#blog-archive-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 9px 26px;
-  background: transparent;
-  color: rgba(255,255,255,0.7);
-  border: 1.5px solid rgba(217,148,255,0.4);
-  border-radius: 999px;
-  font-family: 'Antonio', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  text-decoration: none;
-  transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s;
+/* ================================================================
+   CONFIG
+   ================================================================ */
+const BLOG_CONFIG = {
+  feedFile:  'feed.json',         /* relative to site root */
+  cacheKey:  'ctw_blog_cache',
+  cacheTTL:  15 * 60 * 1000      /* 15 minutes */
+};
+
+/* ================================================================
+   DOM REFERENCES
+   ================================================================ */
+const feedOutput  = document.getElementById('blog-feed-output');
+const feedEmpty   = document.getElementById('blog-feed-empty');
+
+/* ================================================================
+   STATE
+   ================================================================ */
+function showState(state) {
+  feedEmpty.hidden  = state !== 'empty';
+  feedOutput.hidden = state !== 'posts';
 }
 
-#blog-archive-link:hover {
-  background: rgba(141,95,211,0.9);
-  color: #fff;
-  border-color: #8d5fd3;
-  box-shadow: 0 0 14px rgba(141,95,211,0.5);
+/* ================================================================
+   CACHE
+   ================================================================ */
+function cacheRead() {
+  try {
+    const raw = localStorage.getItem(BLOG_CONFIG.cacheKey);
+    if (!raw) return null;
+    const { ts, data } = JSON.parse(raw);
+    if (Date.now() - ts > BLOG_CONFIG.cacheTTL) return null;
+    return data;
+  } catch { return null; }
 }
 
-p { 
-	text-indent: 2em;
+function cacheWrite(data) {
+  try {
+    localStorage.setItem(
+      BLOG_CONFIG.cacheKey,
+      JSON.stringify({ ts: Date.now(), data })
+    );
+  } catch {}
 }
 
-h3 {
-	padding: 1rem;
-	
-}
-/* ─────────────────────────────────────────────────────────────
-   BLOG SECTION WRAPPER
-   Full-bleed section. Min-height 100vh matches other sections.
-   ───────────────────────────────────────────────────────────── */
-#blog-section {
-  position: relative;
-  z-index: 2;
-  min-height: 100vh;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+/* ================================================================
+   XSS MITIGATION
+   ================================================================ */
+const STRIP_TAGS  = new Set(['script','iframe','object','embed','form','input','button','textarea','select']);
+const STRIP_ATTRS = /^(on\w+|javascript:|data:)/i;
 
-/* ─────────────────────────────────────────────────────────────
-   BLOG PAGE HEADER
-   Matches resources/mission article heading language.
-   linearGradient25 (#ff80e5) tint from top, fades out.
-   ───────────────────────────────────────────────────────────── */
-#blog-section-header {
-  width: 100%;
-  padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  text-align: center;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,128,229,0.38) 0%,
-    rgba(255,128,229,0) 100%
-  );
-}
-
-#blog-section-subheading {
-  font-family: 'Antonio', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: rgba(255,255,255,0.724138);
-}
-
-#blog-section-heading {
-  font-family: 'Mistral', 'Dancing Script', cursive;
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
-  font-weight: 500;
-  color: rgba(255,255,255,0.9);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.45);
-  line-height: 0.9;
-  letter-spacing: 0;
-  text-align: center;
-}
-
-#blog-section-tagline {
-  font-family: 'Baskerville Old Face', 'Libre Baskerville', Georgia, serif;
-  font-size: clamp(0.85rem, 1.5vw, 1rem);
-  font-style: italic;
-  color: rgba(255,255,255,0.65);
-  text-align: center;
-  margin-top: 0.5rem;
-}
-
-/* Active nav item highlight for "The Word" link */
-#nav-menu-ul-blog_li a {
-  color: #d994ff;
-}
-#nav-menu-ul-blog_li a:hover {
-  color: #fff;
-}
-
-/* ─────────────────────────────────────────────────────────────
-   FEED STATE PANELS
-   Loading / error / empty — centered, full-width.
-   ───────────────────────────────────────────────────────────── */
-.blog-feed-state {
-  width: 100%;
-  max-width: 720px;
-  padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  text-align: center;
-  font-family: 'Baskerville Old Face', 'Libre Baskerville', Georgia, serif;
-  font-size: 1rem;
-  color: rgba(255,255,255,0.75);
-}
-
-
-
-/* ─────────────────────────────────────────────────────────────
-   FEED OUTPUT — .synth-blog-feed NAMESPACE
-   This wrapper is the isolation boundary. All selectors below
-   use .synth-blog-feed as prefix so Blogger inline styles
-   cannot escape into the global layout.
-   ───────────────────────────────────────────────────────────── */
-.synth-blog-feed {
-  width: 100%;
-  max-width: 800px;
-  padding: 0 clamp(1.25rem, 5vw, 4rem) clamp(3rem, 7vw, 6rem);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-/* ── Post card ── */
-.synth-blog-feed .blog-post {
-  position: relative;
-  padding: clamp(2rem, 5vw, 3.5rem) 0;
-  border-bottom: 1px solid rgba(217,148,255,0.22);
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.synth-blog-feed .blog-post:last-child {
-  border-bottom: none;
-}
-
-/* ── Post meta row: date + author ── */
-.synth-blog-feed .blog-post-meta {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: 'Antonio', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: rgba(217,148,255,0.8);
-}
-
-.synth-blog-feed .blog-post-meta time {
-  color: rgba(217,148,255,0.8);
-}
-
-.synth-blog-feed .blog-post-meta .blog-post-author {
-  color: rgba(255,255,255,0.45);
-}
-
-.synth-blog-feed .blog-post-meta .blog-post-author::before {
-  content: '— ';
-}
-
-/* ── Post title ── */
-.synth-blog-feed .blog-post-title {
-  font-family: 'Mistral', 'Dancing Script', cursive;
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-  font-weight: 500;
-  color: rgba(255,255,255,0.9);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.45);
-  line-height: 1.1;
-  letter-spacing: 0;
-}
-
-.synth-blog-feed .blog-post-title a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.18s;
-}
-
-.synth-blog-feed .blog-post-title a:hover {
-  color: #d994ff;
-}
-
-/* ── Post body — Blogger content namespace ──
-   All rules use max-specificity within the namespace to
-   override Blogger's inline width/height/font attributes. */
-.synth-blog-feed .blog-post-body {
-  font-family: 'Baskerville Old Face', 'Libre Baskerville', Georgia, serif !important;
-  font-size: clamp(0.88rem, 1.5vw, 1rem) !important;
-  line-height: 1.72 !important;
-  color: rgba(255,255,255,0.85) !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-/* Force Blogger images to be responsive — overrides inline width/height */
-.synth-blog-feed .blog-post-body img {
-  max-width: 100% !important;
-  width: auto !important;
-  height: auto !important;
-  display: block;
-  margin: 1.25rem auto;
-  border-radius: 3px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.45);
-}
-
-/* Blogger injects <div> wrappers with inline styles — neutralize text color/font overrides */
-.synth-blog-feed .blog-post-body div,
-.synth-blog-feed .blog-post-body span,
-.synth-blog-feed .blog-post-body p {
-  font-family: inherit !important;
-  color: inherit !important;
-  max-width: 100%;
-}
-
-/* Blogger links */
-.synth-blog-feed .blog-post-body a {
-  color: #d994ff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.synth-blog-feed .blog-post-body a:hover {
-  color: #fff;
-}
-
-/* Blogger blockquotes */
-.synth-blog-feed .blog-post-body blockquote {
-  border-left: 3px solid rgba(217,148,255,0.55);
-  margin: 1rem 0;
-  padding: 0.5rem 0 0.5rem 1.25rem;
-  color: rgba(255,255,255,0.7) !important;
-  font-style: italic;
-}
-
-/* ── Read more link ── */
-.synth-blog-feed .blog-post-readmore {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 24px;
-  background: transparent;
-  color: rgba(255,255,255,0.8);
-  border: 1.5px solid rgba(217,148,255,0.45);
-  border-radius: 999px;
-  font-family: 'Antonio', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  text-decoration: none;
-  transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s;
-}
-.synth-blog-feed .blog-post-readmore:hover {
-  background: rgba(141,95,211,0.9);
-  color: #fff;
-  border-color: #8d5fd3;
-  box-shadow: 0 0 14px rgba(141,95,211,0.5);
-}
-
-/* ─────────────────────────────────────────────────────────────
-   RESPONSIVE — PORTRAIT / TABLET
-   ───────────────────────────────────────────────────────────── */
-@media (orientation: portrait) and (max-aspect-ratio: 1/1) {
-  #blog-section-heading {
-    font-size: 6rem;
-    color: lightgray;
+function sanitizeHTML(rawHTML) {
+  if (!rawHTML) return '';
+  const doc = new DOMParser().parseFromString(rawHTML, 'text/html');
+  const walker = document.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT);
+  const toRemove = [];
+  let node = walker.currentNode;
+  while (node) {
+    if (STRIP_TAGS.has(node.tagName.toLowerCase())) {
+      toRemove.push(node);
+    } else {
+      for (const attr of [...node.attributes]) {
+        if (STRIP_ATTRS.test(attr.name) || STRIP_ATTRS.test(attr.value)) {
+          node.removeAttribute(attr.name);
+        }
+      }
+    }
+    node = walker.nextNode();
   }
-  #blog-section-subheading {
-    font-size: 1.5rem;
-    color: lightgray;
+  toRemove.forEach(el => el.remove());
+  return doc.body.innerHTML;
+}
+
+/* ================================================================
+   HELPERS
+   ================================================================ */
+function formatDate(isoString) {
+  try {
+    return new Date(isoString).toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+  } catch { return ''; }
+}
+
+function getPermalink(links) {
+  if (!Array.isArray(links)) return '#';
+  const alt = links.find(l => l.rel === 'alternate');
+  return alt ? alt.href : '#';
+}
+
+/* ================================================================
+   DOM BUILDER
+   ================================================================ */
+function buildPostCard(entry) {
+  const title     = entry.title?.$t             || 'Untitled';
+  const author    = entry.author?.[0]?.name?.$t || '';
+  const published = entry.published?.$t          || '';
+  const content   = entry.content?.$t            || '';
+  const permalink = getPermalink(entry.link);
+
+  const article = document.createElement('article');
+  article.className = 'blog-post';
+
+  // Meta row
+  const meta = document.createElement('div');
+  meta.className = 'blog-post-meta';
+  const timeEl = document.createElement('time');
+  timeEl.setAttribute('datetime', published);
+  timeEl.textContent = formatDate(published);
+  meta.appendChild(timeEl);
+  if (author) {
+    const authorEl = document.createElement('span');
+    authorEl.className   = 'blog-post-author';
+    authorEl.textContent = author;
+    meta.appendChild(authorEl);
   }
-  .synth-blog-feed {
-    padding: 0 clamp(1rem, 4vw, 2.5rem) clamp(2rem, 6vw, 4rem);
+  article.appendChild(meta);
+
+  // Title
+  const titleEl   = document.createElement('h2');
+  titleEl.className = 'blog-post-title';
+  const titleLink = document.createElement('a');
+  titleLink.href        = permalink;
+  titleLink.rel         = 'noopener';
+  titleLink.target      = '_blank';
+  titleLink.textContent = title;
+  titleEl.appendChild(titleLink);
+  article.appendChild(titleEl);
+
+  // Body
+  const bodyEl      = document.createElement('div');
+  bodyEl.className  = 'blog-post-body';
+  bodyEl.innerHTML  = sanitizeHTML(content);
+  bodyEl.querySelectorAll('img').forEach(img => {
+    img.style.removeProperty('width');
+    img.style.removeProperty('height');
+    img.setAttribute('loading', 'lazy');
+    if (!img.alt) img.alt = '';
+  });
+  article.appendChild(bodyEl);
+
+  // Read More
+  const readMore       = document.createElement('a');
+  readMore.className   = 'blog-post-readmore';
+  readMore.href        = permalink;
+  readMore.rel         = 'noopener';
+  readMore.target      = '_blank';
+  readMore.textContent = 'Read on Blogger';
+  readMore.setAttribute('aria-label', `Read full post: ${title}`);
+  article.appendChild(readMore);
+
+  return article;
+}
+
+/* ================================================================
+   RENDER
+   ================================================================ */
+function renderFeed(entries) {
+  feedOutput.innerHTML = '';
+  if (!entries || entries.length === 0) {
+    showState('empty');
+    return;
+  }
+  const fragment = document.createDocumentFragment();
+  entries.forEach(entry => fragment.appendChild(buildPostCard(entry)));
+  feedOutput.appendChild(fragment);
+  showState('posts');
+}
+
+/* ================================================================
+   FETCH — reads local feed.json, no CORS involved
+   ================================================================ */
+async function fetchFeed() {
+  const cached = cacheRead();
+  if (cached) {
+    renderFeed(cached);
+    return;
+  }
+
+  try {
+    const response = await fetch(BLOG_CONFIG.feedFile);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data    = await response.json();
+    const entries = data?.feed?.entry ?? [];
+    cacheWrite(entries);
+    renderFeed(entries);
+  } catch (err) {
+    console.error('[CTW Blog] Failed to load feed.json:', err.message);
+    showState('empty'); /* fail silently to visitor, log to console */
   }
 }
 
-/* ─────────────────────────────────────────────────────────────
-   RESPONSIVE — MOBILE (max-width: 540px)
-   ───────────────────────────────────────────────────────────── */
-@media (max-width: 540px) {
-  #blog-section-heading {
-    font-size: clamp(2rem, 10vw, 3rem);
-  }
-  .synth-blog-feed {
-    padding: 0 1rem 2rem;
-  }
-  .synth-blog-feed .blog-post {
-    padding: 1.75rem 0;
-  }
-}
+/* ================================================================
+   INIT
+   ================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  if (!feedOutput) return;
+  fetchFeed();
+});

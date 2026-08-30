@@ -1,0 +1,52 @@
+[
+  {
+    "id": "CTW-001",
+    "sku": "SS-TEE-WHT-CTW",
+    "title": "Claim The Word Tee",
+    "description": "Soft unisex tee. The Word on your chest — take it everywhere.",
+    "price": "$24.99",
+    "alt": "White unisex t-shirt with Claim The Word logo in purple lettering",
+    "img": "images/merch/ctw-tee-white.jpg",
+    "url": "https://claimtheword.myspreadshop.com/"
+  },
+  {
+    "id": "CTW-002",
+    "sku": "SS-HOOD-BLK-CTW",
+    "title": "Logo Pullover Hoodie",
+    "description": "Heavyweight fleece. Wear the ministry through every season.",
+    "price": "$44.99",
+    "alt": "Black pullover hoodie with Claim The Word chest logo",
+    "img": "images/merch/ctw-hoodie-black.jpg",
+    "url": "https://claimtheword.myspreadshop.com/"
+  },
+  {
+    "id": "CTW-003",
+    "sku": "SS-MUG-WHT-CTW",
+    "title": "Morning Word Mug",
+    "description": "11oz ceramic. Start every morning with The Word in your hands.",
+    "price": "$16.99",
+    "alt": "White ceramic mug with Claim The Word logo in purple",
+    "img": "images/merch/ctw-mug-white.jpg",
+    "url": "https://claimtheword.myspreadshop.com/"
+  },
+  {
+    "id": "CTW-004",
+    "sku": "SS-STKR-CTW-LOGO",
+    "title": "CTW Logo Sticker",
+    "description": "Weatherproof vinyl. Put The Word anywhere it needs to be.",
+    "price": "$4.99",
+    "alt": "Round vinyl sticker with Claim The Word logo",
+    "img": "images/merch/ctw-sticker-logo.jpg",
+    "url": "https://claimtheword.myspreadshop.com/"
+  },
+  {
+    "id": "CTW-005",
+    "sku": "SS-TOTE-NAT-CTW",
+    "title": "Carry The Word Tote",
+    "description": "Natural canvas tote. Sturdy, generous, and gospel-ready.",
+    "price": "$18.99",
+    "alt": "Natural canvas tote bag with Claim The Word logo",
+    "img": "images/merch/ctw-tote-natural.jpg",
+    "url": "https://claimtheword.myspreadshop.com/"
+  }
+]

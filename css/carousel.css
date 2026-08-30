@@ -1,0 +1,393 @@
+/* ================================================================
+   CLAIM THE WORD — css/carousel.css
+   Merch carousel. Neutral — works on index.html and resources.html.
+   Self-contained: no overrides to parent page styles.
+   Visual hierarchy: image → title → price → description → SKU stamp (lower-left).
+   ================================================================ */
+
+/* ── SECTION SHELL ───────────────────────────────────────────── */
+#merch-carousel-section {
+  width: 100%;
+  padding: clamp(32px, 5vw, 64px) 0 clamp(40px, 6vw, 72px);
+  background: rgba(0, 0, 0, 0.28);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top rule accent — echoes the resources page border motif */
+#merch-carousel-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 90%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(170, 204, 255, 0.4) 20%,
+    rgba(217, 148, 255, 0.5) 50%,
+    rgba(170, 204, 255, 0.4) 80%,
+    transparent
+  );
+}
+
+/* ── SECTION HEADER ──────────────────────────────────────────── */
+#merch-carousel-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: clamp(20px, 3vw, 36px);
+  padding: 0 clamp(16px, 4vw, 48px);
+  text-align: center;
+}
+
+#merch-carousel-eyebrow {
+  font-family: 'Antonio', sans-serif;
+  font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: rgba(170, 204, 255, 0.7);
+  margin-right: -0.35em; /* optical kern for letter-spacing */
+}
+
+#merch-carousel-title {
+  font-family: 'Mistral', 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1;
+}
+
+#merch-carousel-subtitle {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: clamp(0.72rem, 1vw, 0.85rem);
+  color: rgba(255, 255, 255, 0.42);
+  font-style: italic;
+  margin-top: 2px;
+}
+
+/* ── CAROUSEL TRACK WRAPPER ──────────────────────────────────── */
+/* Masks overflow, positions prev/next buttons */
+#merch-carousel-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* Extra horizontal padding lets edge cards peek in */
+  padding: 0 clamp(40px, 6vw, 80px);
+  box-sizing: border-box;
+}
+
+/* ── TRACK — slides arranged in a horizontal flex row ─────────── */
+#merch-carousel-track {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(16px, 2.5vw, 28px);
+  transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  /* No width set here — JS calculates and sets transform */
+}
+
+/* ── INDIVIDUAL CARD ─────────────────────────────────────────── */
+.merch-card {
+  flex: 0 0 clamp(220px, 28vw, 320px);
+  width: clamp(220px, 28vw, 320px);
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: visible; /* stamp overflows bottom-left */
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.merch-card:hover,
+.merch-card:focus-within {
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(170, 204, 255, 0.25);
+  border-color: rgba(170, 204, 255, 0.3);
+  outline: none;
+}
+
+/* ── CARD IMAGE BLOCK ────────────────────────────────────────── */
+.merch-card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.merch-card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s ease, filter 0.3s ease;
+  filter: saturate(0.9);
+}
+
+.merch-card:hover .merch-card-image-wrap img {
+  transform: scale(1.04);
+  filter: saturate(1.1);
+}
+
+/* ── SKU STAMP — lower-left of image, boomerang terminus ─────── */
+/*
+  The eye travels: image → title → price → description → snaps back here.
+  Commercial/industrial fine print. Bottom-left of image block.
+*/
+.merch-card-sku {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-family: 'Antonio', monospace, sans-serif;
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  background: rgba(0, 0, 0, 0.52);
+  padding: 2px 6px 2px 5px;
+  border-left: 2px solid rgba(170, 204, 255, 0.5);
+  line-height: 1.6;
+  pointer-events: none;
+  user-select: none;
+  /* Stamp feel: slight tracking, no border-radius */
+  border-radius: 0;
+  z-index: 2;
+}
+
+/* ID line above SKU — even smaller, dimmer */
+.merch-card-sku::before {
+  content: attr(data-id);
+  display: block;
+  font-size: 0.46rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.32);
+  line-height: 1.4;
+}
+
+/* ── CARD BODY — title, price, description ───────────────────── */
+.merch-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(12px, 2vw, 18px) clamp(12px, 1.8vw, 16px) clamp(14px, 2vw, 20px);
+  flex: 1;
+}
+
+/* Title — Antonio, prominent, left-aligned */
+.merch-card-title {
+  font-family: 'Antonio', sans-serif;
+  font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.15;
+  text-decoration: none;
+}
+
+/* Price — prominent, accent colour, right after title */
+.merch-card-price {
+  font-family: 'Antonio', sans-serif;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  font-weight: 400;
+  color: #aaccff;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* Description — Baskerville, body copy register */
+.merch-card-description {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: clamp(0.7rem, 0.95vw, 0.82rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.55);
+  font-style: italic;
+  flex: 1;
+}
+
+/* Full-card link overlay — makes entire card clickable */
+.merch-card-link-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  /* transparent — just the hit area */
+}
+
+/* ── PREV / NEXT BUTTONS ─────────────────────────────────────── */
+.merch-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: clamp(32px, 4vw, 44px);
+  height: clamp(32px, 4vw, 44px);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    opacity 0.18s ease;
+  padding: 0;
+}
+
+.merch-carousel-btn:hover {
+  background: rgba(170, 204, 255, 0.18);
+  border-color: rgba(170, 204, 255, 0.5);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.merch-carousel-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.merch-carousel-btn:disabled,
+.merch-carousel-btn[aria-disabled="true"] {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+
+#merch-carousel-prev {
+  left: clamp(6px, 1.2vw, 16px);
+}
+
+#merch-carousel-next {
+  right: clamp(6px, 1.2vw, 16px);
+}
+
+/* ── DOT INDICATORS ──────────────────────────────────────────── */
+#merch-carousel-dots {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(16px, 2.5vw, 24px);
+  padding: 0 16px;
+}
+
+.merch-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, width 0.2s ease;
+  flex-shrink: 0;
+}
+
+.merch-dot.active {
+  background: #aaccff;
+  width: 18px;
+  border-radius: 3px;
+  transform: none;
+}
+
+.merch-dot:hover:not(.active) {
+  background: rgba(170, 204, 255, 0.5);
+  transform: scale(1.3);
+}
+
+/* ── SHOP LINK ───────────────────────────────────────────────── */
+#merch-carousel-shop-link {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(20px, 3vw, 32px);
+}
+
+#merch-carousel-shop-link a {
+  font-family: 'Antonio', sans-serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.65);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 2px;
+  margin-right: -0.3em;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  text-decoration: none;
+}
+
+#merch-carousel-shop-link a:hover {
+  color: #aaccff;
+  border-color: #aaccff;
+}
+
+/* ── EMPTY STATE (no products loaded) ───────────────────────── */
+#merch-carousel-empty {
+  text-align: center;
+  padding: 40px 20px;
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-style: italic;
+  display: none;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+
+/* Tablet / square */
+@media (max-width: 900px) {
+  .merch-card {
+    flex: 0 0 clamp(200px, 42vw, 280px);
+    width: clamp(200px, 42vw, 280px);
+  }
+}
+
+/* Mobile portrait */
+@media (max-width: 560px) {
+  #merch-carousel-viewport {
+    padding: 0 clamp(28px, 5vw, 44px);
+  }
+
+  .merch-card {
+    flex: 0 0 80vw;
+    width: 80vw;
+  }
+
+  #merch-carousel-title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .merch-card-sku {
+    font-size: 0.48rem;
+  }
+}
+
+/* ── REDUCED MOTION ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  #merch-carousel-track {
+    transition: none;
+  }
+  .merch-card {
+    transition: none;
+  }
+  .merch-card-image-wrap img {
+    transition: none;
+  }
+}

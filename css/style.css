@@ -96,7 +96,7 @@ body {
   font-family: var(--font-body);
   overflow-x: hidden;
   background: #ffffff;
-  background-image: url('/images/news.png');
+  /*background-image: url('/images/news.png');*/
   background-attachment: fixed;
   back
   color: #fff;
@@ -115,7 +115,7 @@ body {
 	box-shadow: 0px 0px 90px DarkSlateGray;
 	border-left:1px solid Indigo;
 	border-right:1px solid Indigo;
-	opacity: 0.99;
+	opacity: 1;
 }
 
 

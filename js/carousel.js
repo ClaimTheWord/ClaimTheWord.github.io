@@ -28,7 +28,7 @@
     mountId:      'merch-carousel-mount',
     visibleCards: null,              // null = auto-detect from CSS card width
     gap:          null,              // null = read from computed style
-    autoplay:     false,             // set true to enable; pauses on hover/focus
+    autoplay:     true,             // set true to enable; pauses on hover/focus
     autoplayMs:   4800,
     shopUrl:      'https://claimtheword.myspreadshop.com/',
     shopLabel:    'Shop all items at claimtheword.myspreadshop.com →',

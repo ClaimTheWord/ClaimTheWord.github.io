@@ -1,7 +1,7 @@
 [
   {
-    "Posted": "Aug 30, 2026",
-    "Vibe": "Bold",
+    "id": "Aug 30, 2026",
+    "sku": "Bold",
     "title": "Saved! Red Snapback Cap",
     "description": "Kai Lavatai's Christian synthpop praise and worship album, Saved! is a declaration that Jesus' people are sealed for the day of redemption (Ephesians 4:30). This piece displays that clear statement.",
     "price": "$22.49+",
@@ -10,43 +10,53 @@
 	"url": "https://claimtheword.myspreadshop.com/saved+were+saved+by+our+faith+in+jesus+christ-A6a0a98738c78661dd82dbebc?productType=803&sellable=lNa75bMe8yfgrv1oodlb-803-34&appearance=261"
   },
   {
-    "id": "CTW-002",
-    "sku": "SS-HOOD-BLK-CTW",
-    "title": "Logo Pullover Hoodie",
-    "description": "Heavyweight fleece. Wear the ministry through every season.",
-    "price": "$44.99",
-    "alt": "Black pullover hoodie with Claim The Word chest logo",
-    "img": "images/merch/ctw-hoodie-black.jpg",
-    "url": "https://claimtheword.myspreadshop.com/"
+    "id": "Aug 30, 2026",
+    "sku": "Chilled",
+    "title": "In the beginning...the Word Women's Muscle Tee",
+    "description": "100% Cotton",
+    "price": "$25.49+",
+    "alt": "Women's cropped graphic tee that says "In the beginning was the Word",
+    "img": "https://image.spreadshirtmedia.com/image-server/v1/products/T2917A1228PA4605PT17X1Y21D1059002810W25000H13092/views/1,width=650,height=650,appearanceId=1230,crop=detail,modelId=9475/if-you-know-you-know-the-first-few-words-of-the-book-of-john-confound-the-wicked-yet-comfort-the-weary-in-this-lost-world-we-need-to-break-the-ice.jpg",
+    "url": "https://claimtheword.myspreadshop.com/in+the+beginning+was+the+word+christian+gear-A6a93b17c215f6e3edbad8b80?productType=2917&sellable=pNVrX4vy1quAgqYXByY9-2917-16&appearance=1230"
   },
   {
-    "id": "CTW-003",
-    "sku": "SS-MUG-WHT-CTW",
-    "title": "Morning Word Mug",
-    "description": "11oz ceramic. Start every morning with The Word in your hands.",
-    "price": "$16.99",
-    "alt": "White ceramic mug with Claim The Word logo in purple",
-    "img": "images/merch/ctw-mug-white.jpg",
-    "url": "https://claimtheword.myspreadshop.com/"
+    "id": "Aug 30, 2026",
+    "sku": "Simple",
+    "title": "Jesus Loves You Crewneck Sweatshirt",
+    "description": "50% preshrunk cotton/50% polyester. Made with 50% sustainably and fairly grown USA cotton. | Fabric Weight: 7.75 oz (midweight)",
+    "price": "$37.99+",
+    "alt": "Purple crew neck sweatshirt that says Jesus Loves You",
+    "img": "https://image.spreadshirtmedia.com/image-server/v1/products/T512A134PA4049PT17X45Y38D1057548586W21017H21187/views/1,width=650,height=650,appearanceId=134,crop=detail,modelId=23041/the-realest-vibeboldly-inform-the-world-that-jesus-loves-them-jesus-loves-you-the-message-of-the-right-now-leave-no-person-in-doubt-truest-most.jpg",
+    "url": "https://claimtheword.myspreadshop.com/jesus+loves+you-A68809c0041873b646c104a78?productType=512&sellable=jN8kM1Nb9rTZ9mNygyYj-512-26&appearance=134"
   },
   {
-    "id": "CTW-004",
-    "sku": "SS-STKR-CTW-LOGO",
-    "title": "CTW Logo Sticker",
-    "description": "Weatherproof vinyl. Put The Word anywhere it needs to be.",
-    "price": "$4.99",
-    "alt": "Round vinyl sticker with Claim The Word logo",
-    "img": "images/merch/ctw-sticker-logo.jpg",
-    "url": "https://claimtheword.myspreadshop.com/"
+    "id": "Aug 30, 2026",
+    "sku": "Demure",
+    "title": "Claim The Word Shirt (deluxe)",
+    "description": "100% combed ringspun cotton fine jersey",
+    "price": "$40.49",
+    "alt": "Boxy fit tee with Claim The Word logo and Bible verse motto on the back",
+    "img": "https://image.spreadshirtmedia.com/image-server/v1/products/T812A231PA4267PT17X15Y18D1059002777W31608H25107/views/1,width=650,height=650,appearanceId=386,crop=detail,modelId=1237/hosea-46-says-my-people-are-destroyed-for-lack-of-knowledge-and-1-corinthians-619-reminds-us-know-ye-not-that-your-body-is-the-temple-of-the-ho.jpg",
+    "url": "https://claimtheword.myspreadshop.com/claim+the+word+holy+ghost+bible+scripture+cd+logo-A6a0a3683b8f8a539b58b136e?productType=4500&sellable=QwknqNVrQJSVYEoMRwZm-4500-7&appearance=942"
   },
   {
-    "id": "CTW-005",
-    "sku": "SS-TOTE-NAT-CTW",
-    "title": "Carry The Word Tote",
+    "id": "Aug 30, 2026",
+    "sku": "Bold",
+    "title": "Read The Ingredients Shirt",
     "description": "Natural canvas tote. Sturdy, generous, and gospel-ready.",
-    "price": "$18.99",
-    "alt": "Natural canvas tote bag with Claim The Word logo",
-    "img": "images/merch/ctw-tote-natural.jpg",
-    "url": "https://claimtheword.myspreadshop.com/"
+    "price": "$26.99+",
+    "alt": "Men's premium Tee saying Read The Ingredients",
+    "img": "https://image.spreadshirtmedia.com/image-server/v1/products/T812A231PA4267PT17X15Y18D1059002777W31608H25107/views/1,width=650,height=650,appearanceId=386,crop=detail,modelId=1237/hosea-46-says-my-people-are-destroyed-for-lack-of-knowledge-and-1-corinthians-619-reminds-us-know-ye-not-that-your-body-is-the-temple-of-the-ho.jpg",
+    "url": "https://claimtheword.myspreadshop.com/read+the+ingredients+temple+of+the+holy+ghost-A6a93b99d82764714cf92f8ad?productType=812&sellable=40Dwd35VMzfv9ErDb0DM-812-7&appearance=386"
+  },
+  {
+    "id": "Aug 30, 2026",
+    "sku": "Psychic",
+    "title": "Spoon Bender Shirt (deluxe)",
+    "description": "Natural canvas tote. Sturdy, generous, and gospel-ready.",
+    "price": "$32.49+",
+    "alt": "Premium tee with spoon bender revelation on the front combined with Bible verse on the back — Mind science essential",
+    "img": "https://image.spreadshirtmedia.com/image-server/v1/products/T813A1250PA3134PT17X1Y56D1058947988W27858H8921PA4249PT17X8Y0D1058947731W26277H35842/views/1,width=650,height=650,appearanceId=1250,crop=detail,modelId=24027/the-apostle-paul-tells-us-in-romans-122-5Bbe-not-conformed-to-this-world-be-transformed-by-the-renewing-of-your-mind5D-wear-the-message-on-your.jpg",
+    "url": "https://claimtheword.myspreadshop.com/romans+122+there+is+no+spoon+meta+statement-A6a76e94411c300641afd155a?productType=813&sellable=krede4YOrmtlGQ19G1J1-813-8&appearance=1250"
   }
 ]
